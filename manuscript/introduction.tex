@@ -1,0 +1,114 @@
+\section{Introduction}
+
+The equivalent-layer technique has been used by exploration geophysicists for processing potential-field 
+data since the late 1960s \citep{dampney1969}. 
+This technique is based on a widely accepted principle, which states that a discrete set of observed 
+potential-field data due to 3D sources 
+can be approximated by that due to a discrete discrete set of virtual sources (such as point 
+masses, dipoles, prisms, doublets). From a theoretical point of view, the equivalent-layer 
+technique is grounded on potential theory \citep{kellogg1967} and consists in considering 
+that the potential field data can be approximated by a linear combination of harmonic 
+functions describing the potential field due to the virtual sources. These sources, commonly 
+called equivalent sources, are arranged on a layer with finite horizontal dimensions and 
+located below the observations. In the classical approach, a linear inverse problem is 
+solved to estimate the physical property of each equivalent source subject to fit the 
+observations. Then, the estimated physical-property distribution on the equivalent layer is 
+used to accomplish the desired potential-field transformation (e.g., interpolation, 
+upward/downward continuation, reduction to the pole). The later step is done by multiplying 
+the estimated physical-property distribution by the matrix of Green's functions associated 
+with the desired potential-field transformation.
+
+Because the linear inverse problem to be solved in the equivalent-layer technique is set up 
+with a full sensitivity matrix, its computational cost strongly depends on the number of 
+potential-field observations and can be very inefficient for dealing with massive data sets. 
+To overcome this problem, computationally efficient methods based on equivalent-layer 
+technique have arose in the late 1980s. 
+To our knowledge, the first method towards improving the efficiency  was proposed by \cite{leao-silva1989}, 
+who used an overlapping moving-window scheme spanning the data set. 
+The strategy adopted in \cite{leao-silva1989} involves solving several smaller, regularized linear 
+inverse problems instead of one large problem. 
+This strategy uses a small data window and distributes equivalent sources 
+on a small regular grid at a constant depth below the data surface, with the sources' window extending beyond 
+the boundaries of the data window.
+Because of the spatial layouts of observed data and equivalent sources in \cite{leao-silva1989}, the small 
+sensitivity submatrix containing the coordinates of the data and equivalent sources within a window remains 
+constant for all data windows. This holds true regardless  of the specific locations of the data and equivalent 
+sources within each window.
+For each position of the data window, this scheme consists in computing the processed field 
+at the center of the data window only, and the next estimates of the processed field are 
+obtained by shifting the data window across the entire dataset. 
+More recently, \cite{soler-uieda2021} extended the method introduced by \cite{leao-silva1989} to accommodate 
+irregularly spaced data collected on a non-flat surface.
+Unlike  \cite{leao-silva1989}, in the generalization proposed by \cite{soler-uieda2021}, the sensitivity 
+submatrix that includes the coordinates of the data and equivalent sources needs to be computed for each window.
+\cite{soler-uieda2021}  developed a computational approach to further enhance the efficiency of the 
+equivalent-layer technique by combining two strategies. 
+The first one --- the block-averaging source locations --- reduces the number of model parameters and the second 
+strategy --- the gradient-boosted algorithm --- reduces the size of the linear system to be solved by 
+iteratively fitting the equivalent source model along overlapping windows. 
+It is worth noting that the equivalent-layer strategy of using a moving-window scheme either in 
+\cite{leao-silva1989} or in \cite{soler-uieda2021} is similar to discrete convolution.
+
+As another strategy to reduce the computational workload of the equivalent-layer technique, some authors 
+have employed column- and row-action updates, which are commonly applied to image reconstruction methods \citep[e.g.,][]{elfving-etal2017}. 
+These methods involve iterative calculations of a single column and a single row of the sensitivity matrix, respectively.
+Following the strategy column-action update, \cite{cordell1992} proposed a computational method in which a single equivalent source positioned below a measurement station is iteratively used to compute both the predicted data and residual data for all stations. 
+In  \citeauthor{cordell1992}'s method, a single column of the sensitivity matrix is calculated per iteration, meaning that a single equivalent source contributes to data fitting in each iteration. 
+\cite{guspi-novara2009} further extended  \citeauthor{cordell1992}'s method 
+by applying it to scattered magnetic observations.
+Following the strategy of column-action update, \cite{mendonca-silva1994} developed an iterative procedure where one data point is incorporated at a time, and a single row of the sensitivity matrix is calculated per iteration.
+This strategy adopted by \cite{mendonca-silva1994} is known as \textit{equivalent data concept}.
+This concept is based on the principle that certain data points within a dataset are redundant and, as a result, do not contribute to the final solution
+On the other hand, there is a subset of observations known as equivalent data, which effectively contributes to the final solution and fits the remaining redundant data. 
+In their work, \cite{mendonca-silva1994} adopted an iterative approach to select a substantially smaller subset of equivalent data from the original dataset. 
+
+
+The next strategy involves reparametrizing the equivalent layer with the objective of solving a 
+smaller linear inverse problem by reducing the dimension of the model space.
+\cite{oliveirajr-etal2013} reduced the model parameters by approximating the equivalent-source layer by a piecewise-polynomial function defined on a set of user-defined small equivalent-source windows. 
+The estimated parameters are the polynomial coefficients for each window and they are much smaller than the original number of equivalent sources.
+By using the subspace method, \cite{mendonca2020} reparametrizes the equivalent layer, which involves 
+reducing the dimension of the linear system from the original parameter-model space to a lower-dimensional subspace.
+The subspace bases span the parameter-model space and they are constructed by applying the singular value decomposition to the matrix containing the gridded data.
+
+Following the strategy of sparsity induction, 
+\cite{li-oldenburg2010} transformed the full sensitivity matrix into a sparse one using orthonormal compactly supported wavelets. 
+\cite{barnes-lumley2011} proposed an alternative approach to introduce sparsity based on the use of 
+quadtree discretization to group equivalent sources far from the computation points.
+Those authors explore the induced sparsity by using specific iterative methods to solve the linear system.
+
+The strategy named iterative methods estimates iteratively the parameter vector that represents a distribution over an equivalent layer.
+\cite{xia-sprowl1991} and \cite{xia-etal1993} have developed efficient iterative algorithms 
+for updating the distribution of physical properties within the equivalent layer in the wavenumber and space domains, respectively.
+Specifically, in \citeauthor{xia-sprowl1991}'s (\citeyear{xia-sprowl1991}) method the physical-property distribution is updated by using the ratio between the squared depth to the equivalent source and the gravitational constant multiplied by the residual between the observed and predicted observation at the measurement station. 
+\cite{siqueira-etal2017} developed an iterative solution where the sensitivity matrix is transformed into a diagonal matrix with constant terms through the use of the \textit{excess mass criterion} and of the positive correlation between the observed gravity data and the masses on the equivalent layer.
+The fundamentals of the \citeauthor{siqueira-etal2017}'s method
+is  based on the Gauss' theorem \cite[e.g.,][p. 43]{kellogg1967} and the total excess of mass \cite[e.g.,][p. 60]{blakely1996}.
+All these iterative methods use the full and dense sensitivity matrix to calculate the predicted data 
+and residual data in the whole survey data per iteration.
+Hence, the iterative methods proposed by \cite{xia-sprowl1991}, \cite{xia-etal1993} and 
+\cite{siqueira-etal2017} neither compress nor reparametrize the sensitivity  matrix.
+\cite{jirigalatu-ebbing2019} also proposed an iterative equivalent layer that uses the full and dense sensitivity matrix. 
+However, in their approach, \cite{jirigalatu-ebbing2019}  efficiently compute  the predicted data and 
+residual data for the entire survey per iteration in the wavenumber domain.
+
+Following the strategy of the  iterative deconvolution, \citet{takahashi-etal2020,takahashi-etal2022}
+developed fast and effective equivalent-layer techniques for processing, respectively, gravity and magnetic data by modifying the forward modeling to 
+estimate the physical-property distribution over the equivalent layer through a 2D discrete fast convolution.
+These methods took advantage of the Block-Toeplitz Toeplitz-block (BTTB) structure of the sensitivity matrices, allowing them to be calculated by 
+using only their first column.
+In practice, the forward modeling uses a single equivalent source, which significantly reduces the required RAM memory. 
+
+The method introduced by \citet{takahashi-etal2020,takahashi-etal2022} can be reformulated to eliminate the need for conjugate gradient iterations. 
+This reformulation involves employing a \textit{direct deconvolution} approach \citep[e.g.,][p. 220]{aster_etal2019} with 
+\textit{Wiener filter} \citep[e.g.,][p. 263]{gonzalez-woods2002}.
+
+Here, we present a comprehensive review of diverse strategies to solve the linear system of the equivalent layer alongside an analysis 
+of the computational cost and stability of these strategies. 
+To do this analysis, we are using the floating-point operations count to evaluate the performance of 
+a selected set of methods. 
+To test the stability, we are using the linear system sensitivity to noise as a comparison parameter for the fastest of these methods alongside the classical normal equations. 
+A potential-field transformation will also be used to evaluate the quality of the equivalent sources estimation results using both synthetic and real data from Carajás Mineral Province, Brazil.
+
+
+

@@ -1,0 +1,136 @@
+\section{Applications to field data}
+\label{sec:real_data}
+
+In this section, we show the applications of the iterative (Algorithm \ref{alg:TOB20-22}) and direct 
+(equations \ref{eq:direct-deconvolution} and \ref{eq:matrix-L-Wiener-deconvolution}) deconvolutions to field data sets 
+over the Caraj{\'a}s Mineral Province (CMP) in the Amazon craton \citep{moroni-etal2001,villas-santos2001}. 
+This area is known for its intensive mineral exploration such as iron, copper, gold, manganese, and, recently, bauxite.
+
+\subsection{Geological setting}
+
+The Amazon Craton is one of the largest and least-known Archean-Proterozoic areas in the world, comprehending a region with a thousand square kilometers. 
+It is one of the main tectonic units in South America, which is covered by five Phanerozoic basins: 
+Maranh{\~a}o (Northeast), Amazon (Central), Xingu-Alto Tapaj{\'o}s (South), Parecis (Southwest), and Solim{\~o}es (West). 
+The Craton is limited by the Andean Orogenic Belt to the west and the by Araguaia Fold Belt to the east and southeast. 
+The Amazon craton has been subdivided into provinces according to two models, one geochronological and the other geophysical-structural 
+\citep{amaral1974, teixeira-etal1989, tassinari-macambira1999}. Thus, seven geological provinces with distinctive ages, evolution, and structural 
+patterns can be observed, namely: (i) Caraj{\'a}s with two domains - the Mesoarchean Rio Maria and Neoarchean Caraj{\'a}s; 
+(ii) Archean-Paleoproterozoic Central Amazon, with Iriri-Xingu and Curuá-Mapuera domains; (ii) Trans-Amazonian (Ryacian), with the Amap{\'a} 
+and Bacaj{\'a} domains; (iv) the Orosinian Tapaj{\'o}s-Parima, with Peixoto de Azevedo, Tapaj{\'o}s, Uaimiri, and Parima domains; 
+(v) Rond{\^o}nia-Juruena (Statherian), with Jamari, Juruena, and Jauru domains; (vi) The Statherian Rio Negro, with Rio Negro and 
+Imeri domains; and (vii) Suns{\'a}s (Meso-Neoproterozoic), with Santa Helena and Nova Brasil{\^a}ndia domains \citep{santos-etal2000}. 
+Nevertheless, we focus this work only on the Caraj{\'a}s Province. 
+
+The Caraj{\'a}s Mineral Province (CMP) is located in the east-southeast region of the craton, within an old tectonically stable nucleus in the 
+South American Plate that became tectonically stable at the beginning of Neoproterozoic \citep{salomao-etal2019}. 
+This area has been the target of intensive exploration at least since the final of the '60s, after the discovery of large iron ore deposits. 
+There are several greenstone belts in the region, among them are the Andorinhas, Inajá, Cumaru, Caraj{\'a}s, Serra Leste, Serra Pelada, and Sapucaia 
+\citep{santos-etal2000}. The mineralogic and petrologic studies in granite stocks show a variety of minerals found in the province, such as 
+amphibole, plagioclase, biotite, ilmenite, and magnetite \citep{cunha-etal2016}. These two latter minerals contribute to the high magnetic 
+response in the CMP area. This fact opens the opportunity for potential field applications for the geophysical description of the area. 
+
+\subsection{Potential-field data}
+
+The field data used here were acquired obtained from an airborne survey conducted by Lasa Prospec{\c c}{\~o}es S/A. 
+and Microsurvey Aerogeof{\'i}sica Consultoria Cient{\'i}fica Ltda. between April/2013 and October/2014.
+The aeromagnetic data were acquired by the Geological Survey of Brazil-CPRM (ACHO QUE A CPRM NÃO ADQUIRI DADOS).
+The survey area covers $\approx 58000 \: \mathrm{km}^2$ with high-resolution gravity and magnetic data. 
+The flight and the tie lines were acquired and spaced at $3 \: \mathrm{km}$  and $12 \: \mathrm{km}$ oriented in the 
+directions $N-S$ and $E-W$, respectively, with a mean flight height of $900 \: \mathrm{m}$ above the ground. 
+For both applications, we have interpolated gravity and magnetic anomalies data, calculating the data set in a grid of 
+$1000 \times 500$ ($D = 500,000$ observation points) at the same mean flight height. 
+%About the computational resources, we processed both data on an Intel Core i7 7700HQ@2.8 GHz processor and 16GB RAM. 
+The interpolated aerogravimetric and aeromagnetic data are shwon, respectively, in Figures \ref{fig:9} and \ref{fig:11}. 
+
+\subsection{Applications}
+
+%PAREI AQUI
+
+In all applications, we set the same equivalent sources layout with one source located below each datum
+(so $P=D$) on a horizontal plane distant $1200 \: \mathrm{m}$ from the observations.
+This setup is composed by a grid of $1000 \times 500$ equivalent sources ($M = 500,000$). 
+%positioned below the observation plane, but a different depth in each application.
+%We set a depth for the equivalent layer equal to $1200 \, m$ below the observation plane. 
+
+For performing the upward continuation of the gravimetric data (Figure \ref{fig:9}) over CMP in the Amazon craton, we apply the two equivalent-layer methods (iterative and direct deconvolutions).
+By applying the iterative and direct deconvolutions, we estimated density distributions (not shown)
+that produced the predicted gravimetric data shown, respectively, in  Figures \ref{fig:10}A and C.
+The gravimetric residuals obtained by  both the iterative (Figure \ref{fig:10}B) and
+direct (Figure \ref{fig:10}D) deconvolutions are close to zero for most of the survey area
+indicating that both methods achieve acceptable data fittings.
+For the iterative deconvolution, the residuals have a mean of $\approx 0.0005$ mGal and a standard deviation 
+of $\approx 0.16$ mGal.
+For the direct deconvolution, the mean and standard deviation of the residuals are $\approx 0.46$ mGal and 
+$\approx 1.23$ mGal, respectively. 
+We stress that the residuals from the direct deconvolution (Figure \ref{fig:10}D) are greater than  
+the iterative deconvolution (Figure \ref{fig:10}B).
+A possible reason for this difference may be  the border effects.
+Figures \ref{fig:10}E and F show the upward-continued gravimetric data at a height of $-3500 \: \mathrm{m}$
+by using the iterative and direct deconvolutions, respectively.
+Considering the processing time, the iterative and direct deconvolutions took  $\approx 9.18 \: \mathrm{s}$ and $\approx 0.53 \: \mathrm{s}$, respectively. 
+These results demonstrate the efficiency of both the iterative and direct deconvolution methods in processing large gravimetric datasets from extensive areas with dense data coverage. 
+It is worth noting that the direct deconvolution method exhibits faster processing times compared to the iterative deconvolution, which aligns with expectations
+
+We also apply the iterative and direct deconvolutions to compute the upward continuation of the 
+total-field anomalies (Figure \ref{fig:11}) over CMP in the Amazon craton, Brazil.
+Due to the extensive survey area, the main magnetic field direction varies significantly across the area 
+and thus we consider a mean direction for the main magnetic field with 
+declination $-19.865^{\circ}$  and inclination $-7.43915^{\circ}$.
+We set a magnetization direction for the equivalent sources equal to the main magnetic field direction.
+Besides, we set the equivalent layer at constant depth $900 \, \: \mathrm{m}$.
+After estimating the density distributions (not shown), we obtain 
+the predicted data (Figure \ref{fig:12}A) and residuals (Figure \ref{fig:12}B) 
+using the iterative deconvolution with a mean residual of $\approx 0.06 \, nT$ 
+and a standard deviation of $\approx 1.97 \, \mathrm{nT}$. 
+Similarly, we generate the predicted data (Figure \ref{fig:12}C) and residuals (Figure \ref{fig:12}D) using the direct deconvolution method with a mean residual of $\approx 18.99 \, nT$ 
+and a standard deviation of $\approx 33.64 \, \mathrm{nT}$. 
+The observed total-field anomaly upward-continued  at a height of $-3500 \: \mathrm{m}$
+by using the iterative and direct deconvolutions are shown in Figures \ref{fig:12}E and F, respectively.
+Considering the processing time to upward-continued the magnetic data, the iterative and direct deconvolutions took, respectively,  $ \approx 82.08  \, \mathrm{s}$ and $ \approx 0.89  \, \mathrm{s}$, highlighting the faster processing time of the direct deconvolution method compared to the iterative deconvolution.
+Despite the difference in processing time between the two deconvolutions and taking into account the mean and standard deviations of the residuals, our conclusion is that the iterative deconvolution provides a better fit to the total-field anomalies compared to the direct deconvolution.
+
+%\section{Real data application}
+%\label{sec:real_data}
+
+%Gridded data of 1000x500 (500000 observed points) for both grav and mag. Data is at -900m.
+
+%Grav equivalent layer depth is 300 m and 50 iterations of the cgls method was used.
+%Mag equivalent layer depth is 0 m and 200 iterations of the cgls method was used.
+
+%On an Intel Core i7 7700HQ@2.8 GHz processor in single processing and single-threading modes
+%the gravimetric equivalent layer took $9.19$ seconds to estimate the equivalent sources with the convolutional method and $0.51$ seconds with the deconvolutional method. 
+%
+%The magnetic equivalent layer took $82$ seconds to estimate the equivalent sources with the convolutional method and $0.84$ seconds with the deconvolutional method.
+%
+%As Carajás area is very large different values of the magnetic main field can be considered. 
+%The main field declination was calculated using the tool in the website (for the date 01/01/2014): https://www.ngdc.noaa.gov/geomag/calculators/magcalc.shtml
+%For this application I considered an approximated mid location of the area (latitude $-6.55^{\circ}$ and longitude $-50.75^{\circ})$. The declination is $-19.865^{\circ}$ and the inclination $-7.43915^{\circ}$.
+%As the source magnetization is unknown inclination and declination equal to the main field is being used for all the equivalent sources.
+%
+%Gravimetric case:
+%
+%Means
+%
+%0.0005096975472675431 (convolutional method)
+%
+%0.4582999511463665 (deconvolutional method with wiener $\mu = 10^{-22}$)
+%
+%Standart deviations
+%
+%0.15492798729938298 (convolutional method)
+%
+%1.229507199000529 (deconvolutional method with wiener $\mu = 10^{-22}$)
+%\\\\
+%Magnetic case:
+%
+%Means
+%
+%-0.06404347121632468 (convolutional method)
+%
+%18.992921718679344 (deconvolutional method with wiener $\mu = 10^{-16}$)
+%
+%Standart deviations
+%
+%1.9687559764381535 (convolutional method)
+%
+%33.641199020925924 (deconvolutional method with wiener $\mu = 10^{-16}$)

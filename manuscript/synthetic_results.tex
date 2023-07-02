@@ -1,0 +1,167 @@
+\section{Numerical simulations}
+\label{sec:numerical-simulations}
+
+\subsection{Flops count}
+\label{subsec:flops-count}
+
+Figure \ref{fig:flops} shows the total number of flops for solving the overdetermined problem
+(equation \ref{eq:delta-q-tilde-overdetermined}) with different equivalent-layer methods
+(equations \ref{flops:cholesky}, \ref{flops:cgls}, \ref{flops:LS89}, \ref{flops:SU21}, 
+\ref{flops:C92}, \ref{flops:reparameterization-cgls}, \ref{flops:SOB17}, \ref{flops:TOB20},
+and \ref{flops:direct-deconv}), by considering 
+the particular case in which $\mathbf{H} = \mathbf{I}_{P}$ (equation \ref{eq:reparameterization} and 
+subsection \ref{subsec:formulation-without-reparameterization}),
+$\mu = 0$ (equation \ref{eq:function-Gamma}), 
+$\mathbf{W}_{d} = \mathbf{I}_{D}$ (equation \ref{eq:function-Phi}) and
+$\bar{\mathbf{p}} = \mathbf{0}$ (equation \ref{eq:reparameterization-reference}), 
+where $\mathbf{I}_{P}$ and $\mathbf{I}_{D}$ are the identities of order $P$ and $D$, respectively.
+The flops are computed for different number of potential-field data ranging from $10,000$ to $1,000,000$.
+Figure \ref{fig:flops} shows that the moving data-window strategy by using 
+\citeauthor{leao-silva1989}'s \citeyear{leao-silva1989} method and direct deconvolution are the fastest methods.
+
+The control parameters to run the equivalent-layer methods shown in Figure 
+ \ref{fig:flops}  are the following: 
+i) in CGLS, 
+reparameterization approaches \cite[e.g.,][]{oliveirajr-etal2013, mendonca2020}, 
+\cite{siqueira-etal2017}, and 
+\cite{takahashi-etal2020}
+(equations \ref{flops:cgls} \ref{flops:C92}), 
+\ref{flops:reparameterization-cgls},  \ref{flops:SOB17} and \ref{flops:TOB20}) we set $\mathtt{ITMAX} = 50$; 
+ii) \cite{cordell1992} we set ITMAX = $4 \, D$;
+iii) in \cite{leao-silva1989} (equation \ref{flops:LS89}) we set 
+$D'= 49 \: (7 \times 7)$ and $P' = 225 \: (15 \times 15) $; and
+iv) in \cite{soler-uieda2021} (equation  \ref{flops:SU21}) we set 
+$D'= P' = 900 \: (30 \times 30)$.
+
+\subsection{Synthetic potential-field data}
+\label{subsec:synthetic-data}
+
+We create a model composed of three synthetic bodies:
+a sphere centered at $(x, y, z) = (3, -2, 2) \: \mathrm{km}$, with radius of $1 \: \mathrm{km}$;
+a sphere centered at $(x, y, z) = (1, 2.5, 1.8) \: \mathrm{km}$, with radius of $750 \: \mathrm{m}$; and
+a right prism having polygonal horizontal cross-section, top at $z = 900 \: \mathrm{m}$ and thickness $600 \: \mathrm{m}$.
+The density contrasts of the upper left sphere, upper right sphere and prism are, respectively, 
+$600 \: \mathrm{kg}/\mathrm{m}^{3}$, $-500 \: \mathrm{kg}/\mathrm{m}^{3}$ and to $550 \: \mathrm{kg}/\mathrm{m}^{3}$. 
+All synthetic bodies have a total-magnetization vector with intensity $3.46 \: \mathrm{A}/\mathrm{m}$, inclination $35.26^{\circ}$
+and declination $45.0^{\circ}$.
+We consider a main geomagnetic field with constant inclination $20.0^{\circ}$ and declination $35.0^{\circ}$.
+
+We have computed noise-free gravity disturbance and total-field anomaly data $\mathbf{d}$ produced by the
+model on the same regularly spaced grid of $50 \times 50$ points at $z = 50 \: \mathrm{m}$
+(Figures \ref{fig:4}A and \ref{fig:7}A).
+We have also simulated additional $L = 20$ gravity data sets $\mathbf{d}^{\ell}$, $\ell \in \{1:L\}$, 
+by adding pseudo-random Gaussian noise 
+with zero mean and crescent standard deviations to the noise-free data (Figure \ref{fig:3}A).
+The standard deviations vary from $0.5\%$ to $10\%$ of the maximum absolute value in the noise-free data.
+We applied the same procedure to produce additional $20$ noise-corrupted magnetic data sets from the
+noise-free data shown in Figure \ref{fig:7}A.
+Figures \ref{fig:4}B and \ref{fig:7}B show, respectively, the gravity disturbance and total-field anomaly data 
+corrupted with maximum noise level.
+The remaining noise-corrupted gravity and magnetic data are not shown.
+
+\subsection{Stability analysis and upward-continued data}
+
+We set two planar equivalent layers having one source below each datum at a constant vertical coordinate $z = 300 \: \mathrm{m}$.
+Note that, in this case, both layers have a number of sources $P$ equal to the number of data $D$.
+One layer is formed by point masses and is applied to the synthetic gravity data.
+The other is applied to the synthetic magnetic data and is composed of dipoles.
+
+We have applied the Cholesky factorization (equations \ref{eq:Cholesky-factorization} and \ref{eq:Cholesky-solver}), 
+the iterative deconvolution (Algorithms \ref{alg:TOB20-22} and \ref{alg:fast-2D-convolution}) proposed by 
+\citet{takahashi-etal2020, takahashi-etal2022} and the direct deconvolution (equations \ref{eq:direct-deconvolution} and \ref{eq:matrix-L-Wiener-deconvolution})
+with four different values for the parameter $\zeta$ to the $21$ gravity and $21$ magnetic data sets.
+
+For each method, we have obtained one estimate $\tilde{\mathbf{p}}$ from the noise-free gravity data $\mathbf{d}$
+and $L=20$ estimates $\tilde{\mathbf{p}}^{\ell}$ from the noise-corrupted gravity data $\mathbf{d}^{\ell}$, $\ell \in \{1:L\}$,
+for the planar equivalent layer of point masses, totaling $21$ estimated parameter vectors and 
+$20$ pairs $\left( \Delta p^{\ell} \: , \: \Delta d^{\ell} \right)$ of model and data perturbations
+(equations \ref{eq:model-perturbation} and \ref{eq:data-perturbation}).
+Other $21$ estimates for the parameter vector and 
+$20$ pairs $\left( \Delta p^{\ell} \: , \: \Delta d^{\ell} \right)$ were obtained in the same way for the 
+equivalent layer of dipoles by using the synthetic magnetic data.
+Figures \ref{fig:3} and \ref{fig:6} show the numerical stability curves computed with each method for 
+synthetic gravity and magnetic data, respectively.
+
+All these $42$ estimated parameters vectors ($21$ for gravity and $21$ for magnetic data) were obtained by solving 
+the overdetermined problem (equation \ref{eq:delta-q-tilde-overdetermined}) with the same method for the particular case in which
+$\mathbf{H} = \mathbf{I}$ (equation \ref{eq:reparameterization} and 
+subsection \ref{subsec:formulation-without-reparameterization}),
+$\mathbf{W}_{d} = \mathbf{W}_{q} = \mathbf{I}$ (equations \ref{eq:function-Phi} and \ref{eq:function-Theta}) and
+$\bar{\mathbf{p}} = \mathbf{0}$ (equation \ref{eq:reparameterization-reference}), where $\mathbf{I}$ is the identity of order $D$.
+
+Figure \ref{fig:3} shows how the numerical stability curves vary as the level of the noise is increased for the gravimetric data. We can see that for all methods, a linear tendency is observed as it is expected. The inclination of the straight line indicates the stability of each method. 
+As shown in Figure \ref{fig:3}, the deconvolutional method without stabilization parameter (blue dots with $\zeta = 0$ ) exhibits high instability, emphasizing the necessity of using the Wiener filter 
+($\zeta > 0$ in equation \ref{eq:matrix-L-Wiener-deconvolution}) to achieve accurate parameter estimation. 
+Using these gravimetric data, an optimal stabilization parameter 
+$\zeta = 10^{-22}$ (green dots) is necessary to yield a stable solution and prevent overshooting the smootheness of the solution.
+For the magnetic data, Figure \ref{fig:6} shows a very similar behavior of the stability as the previous case. 
+In this case, the Wiener parameter seems to have the best solution for $\zeta = 10^{-14}$ (green dots). 
+
+For both potential-field data, the estimated slopes (Figures \ref{fig:3} and \ref{fig:6}) obtained by using direct deconvolution with an optimum $\zeta$ (green dots), Cholesky factorization (black dots) and iterative deconvolution (red dots) proposed by \cite{takahashi-etal2020} are close to each other.
+This result suggest that the direct deconvolution with an optimum Wiener parameter seems to be one that produces a low slope for the straight line in the stability analysis.
+
+Figures \ref{fig:5} and \ref{fig:8} present the comparison between the residuals due the equivalent layers obtained with the Cholesky factorization, 
+iterative deconvolution and direct deconvolution with optimum $\zeta$ using, respectively, gravity and magnetic data (Figures \ref{fig:3} and \ref{fig:6}).
+The inverted data are those corrupted with the highest noise level (Figures \ref{fig:4}B and \ref{fig:7}B).
+
+Using the gravimetric data, the Cholesky factorization (Figure \ref{fig:5}A), the iterative deconvolution (Figure \ref{fig:5}B) proposed by \cite{takahashi-etal2020}, and the direct deconvolution with an optimum $\zeta = 10^{-22}$ (Figure \ref{fig:5}E) yield acceptable data fitting despite their significant difference in floating-point operations.
+In contrast, the residuals obtained using direct deconvolutional method with a Wiener stabilization  $\zeta$ equal to 
+zero (Figure \ref{fig:5}C), 
+a high value of $\zeta = 10^{-20}$ (Figure \ref{fig:5}D), and 
+a low value of  $\zeta = 10^{-24}$ (Figure \ref{fig:5}F)
+result in unacceptable data fitting.
+
+Using the magnetic data, Figure \ref{fig:8} shows a very similar behavior 
+as in the previous case, indicating a similar pattern.
+Hence, the residuals obtained using the Cholesky factorization 
+(Figure \ref{fig:8}A), the iterative deconvolution (Figure \ref{fig:8}B) proposed by \cite{takahashi-etal2020}, and the direct deconvolution with an optimum $\zeta = 10^{-14}$ (Figure \ref{fig:8}E) show acceptable data fittings. 
+The remainder residuals (direct deconvolutional method with $\zeta =0$ 
+in Figure \ref{fig:8}C, $\zeta = 10^{-12}$ in Figure \ref{fig:8}D, and 
+$\zeta = 10^{-16}$ in Figure \ref{fig:8}F) show that the estimated equivalent layers do not fit the noisy magnetic data.
+
+The upward continuation of the potential-field data is a processing technique to predict the data in a higher altitude. 
+In practice, the interpreter expects a lower amplitude signal and smoother data as the high frequency anomalies tends to disapear. 
+Figure  \ref{fig:grav_up}A shows the true modeled upward gravity data at a height of $-500$ m. 
+Figures \ref{fig:grav_up}B--E show the results of the upward processing obtained by using the Cholesky factorization,  the iterative deconvolution proposed by \cite{takahashi-etal2020} and the direct deconvolution with $\zeta = 0$ and $\zeta = 10^{-22}$ (optimum value), respectively.
+Except the direct deconvolutional method without stabilization ($\zeta = 0$, Figure \ref{fig:grav_up}D), all the three most stable equivalent-layer methods predict the upward-continued gravity data very reasonable.
+
+Figure \ref{fig:mag_up} shows the comparison between the true
+(Figure \ref{fig:mag_up}A)  and the predicted  (Figures \ref{fig:mag_up}B--E) upward-continued magnetic data at a height of $-1400$ m. 
+As in the gravimetric case, the predicted upward-continued magnetic data via Cholesky factorization (Figure \ref{fig:mag_up}C),  the iterative deconvolution proposed by \cite{takahashi-etal2020} (Figure \ref{fig:mag_up}D) and the direct deconvolution with optimum value of  $\zeta = 10^{-14}$  
+(Figure \ref{fig:mag_up}E) are acceptable, except the direct deconvolutional method without stabilization ($\zeta = 0$, Figure Figure \ref{fig:mag_up}D).
+
+%Gravity synthetic statistics to be included:
+%Means
+%0.24791339230971493 (Classical method)
+%0.25522040542133817 (CG BTTB method)
+%0.86010282709889 (Deconvolutional method)
+%1.53835137193657 (Deconvolutional w\ Wiener overshoot $\mu$ method)
+%0.3134732823974472 (Deconvolutional w\ Wiener optimal $\mu$ method)
+%0.5553048046997608 (Deconvolutional w\ Wiener suboptimal $\mu$ method)
+%
+%Standard deviations
+%0.18274083156485463 (Classical method)
+%0.18986126212291252 (CG BTTB method)
+%1.439293452270024 (Deconvolutional method)
+%1.1183051446613188 (Deconvolutional w\ Wiener overshoot $\mu$ method)
+%0.2367045031838225 (Deconvolutional w\ Wiener optimal $\mu$ method)
+%0.7047326489645682 (Deconvolutional w\ Wiener suboptimal $\mu$ method)
+%\\\\
+%Magnetic synthetic statistics to be included:
+%
+%Means
+%
+%6.572366904728528 (Classical method)
+%6.689214592343857 (CG BTTB method)
+%971.9310697001104 (Deconvolutional method)
+%23.672356138290855 (Deconvolutional w\ Wiener overshoot μ method)
+%8.09848247511561 (Deconvolutional w\ Wiener optimal μ method)
+%29.264824940161848 (Deconvolutional w\ Wiener suboptimal μ method)
+%
+%standard deviations
+%4.9276131862044315 (Classical method)
+%4.9909561696899205 (CG BTTB method)
+%1742.0801705255908 (Deconvolutional method)
+%17.671099090589646 (Deconvolutional w\ Wiener overshoot μ method)
+%6.1358737706945075 (Deconvolutional w\ Wiener optimal μ method)
+%29.374157656258866 (Deconvolutional w\ Wiener suboptimal μ method)

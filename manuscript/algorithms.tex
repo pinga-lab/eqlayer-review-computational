@@ -1,0 +1,207 @@
+%\documentclass[utf8]{frontiers_suppmat} % for all articles
+%\usepackage{url,hyperref,lineno,microtype}
+%\usepackage[onehalfspacing]{setspace}
+
+
+
+% Leave a blank line between paragraphs instead of using \\
+
+%\begin{document}
+%\onecolumn
+%\firstpage{1}
+
+\section{Algorithms}
+
+\begin{algorithm}
+	%\SetAlgoLined
+	\Input{}
+	Compute $\mathbf{G}$\;
+	Set $\mathbf{r} = \mathbf{d}$ and compute $\delta = \nicefrac{\| \mathbf{r} \|}{D}$ \;
+	Compute $\boldsymbol{\vartheta} = \mathbf{G}^{\top} \mathbf{r}$ and $\rho_{0} = \boldsymbol{\vartheta}^{\top} \boldsymbol{\vartheta}$ \;
+	Set $\tilde{\mathbf{p}} = \mathbf{0}$, $\tau = 0$ and $\boldsymbol{\eta} = \mathbf{0}$ \;
+	$m = 1$ \;
+	\While{$(\delta > \epsilon)$ {\bf and} $(m < \mathtt{ITMAX})$}{
+		Update $\boldsymbol{\eta} \gets \boldsymbol{\vartheta} + \tau \, \boldsymbol{\eta}$ \;
+		Compute $\boldsymbol{\nu} = \mathbf{G} \, \boldsymbol{\eta}$\;
+		Compute $\upsilon = \nicefrac{\rho_{0}}{\left( \boldsymbol{\nu}^{\top} \boldsymbol{\nu} \right)}$ \;
+		Update $\tilde{\mathbf{p}} \gets \tilde{\mathbf{p}} + \upsilon \, \boldsymbol{\eta}$ \;
+		Update $\mathbf{r} \gets \mathbf{r} - \upsilon \, \boldsymbol{\nu}$ and $\delta \gets \nicefrac{\| \upsilon \, \boldsymbol{\nu} \|}{D}$ \;
+		Compute $\boldsymbol{\vartheta} = \mathbf{G}^{\top} \mathbf{r}$ and $\rho = \boldsymbol{\vartheta}^{\top} \boldsymbol{\vartheta}$ \;
+		Compute $\tau = \nicefrac{\rho}{\rho_{0}}$ \;
+		Update $\rho_{0} \gets \rho$ \;
+		$m \gets m + 1$ \;
+	}
+	\caption{
+		Generic pseudo-code for the CGLS applied to the overdetermined problem (equation \ref{eq:delta-q-tilde-overdetermined})
+		for the particular case in which $\mathbf{H} = \mathbf{I}_{P}$ (equation \ref{eq:reparameterization} and 
+		subsection \ref{subsec:formulation-without-reparameterization}),
+		$\mu = 0$ (equation \ref{eq:function-Gamma}), 
+		$\mathbf{W}_{d} = \mathbf{I}_{D}$ (equation \ref{eq:function-Phi}) and
+		$\bar{\mathbf{p}} = \mathbf{0}$ (equation \ref{eq:reparameterization-reference}), 
+		where $\mathbf{I}_{P}$ and $\mathbf{I}_{D}$ are the identities of order $P$ and $D$, respectively.}
+	\label{alg:CGLS}
+\end{algorithm}
+
+\begin{algorithm}
+	%\SetAlgoLined
+	\Input{}
+	Set the indices $\mathbf{i}^{m}$ for each data window, $m \in \{ 1 : M \}$ \;
+	Set the indices $\mathbf{j}^{m}$ for each source window, $m \in \{ 1 : M \}$ \;
+	Set the constant depth $z_{0} + \Delta z_{0}$ for all equivalent sources \;
+	Compute the vector $\mathbf{a}'$ associated with the desired potential-field transformation \;
+	Compute the matrix $\mathbf{G}'$ \;
+	Compute the matrix $\mathbf{B}'$ (equation \ref{eq:dummy-matrix-LS89}) \;
+	Compute the vector $\left( \mathbf{a}' \right)^{\top} \mathbf{B}'$ \;
+	$m = 1$ \;
+	\While{$m < M$}{
+		Compute $t^{m}_{c}$ (equation \ref{eq:transformed-field-tmc-LS89}) \;
+		$m \gets m + 1$ \;
+	}
+	\caption{Generic pseudo-code for the method proposed by \cite{leao-silva1989}.}
+	\label{alg:LS89}
+\end{algorithm}
+
+\begin{algorithm}
+	%\SetAlgoLined
+	\Input{}
+	Set the indices $\mathbf{i}^{m}$ for each data window, $m \in \{ 1 : M \}$ \;
+	Set the indices $\mathbf{j}^{m}$ for each source window, $m \in \{ 1 : M \}$ \;
+	Set the depth of all equivalent sources \;
+	Set a $D \times 1$ residuals vector $\mathbf{r} = \mathbf{d}$ \;
+	Set a $P \times 1$ vector $\tilde{\mathbf{p}} = \mathbf{0}$ \;
+	$m = 1$ \;
+	\While{$m < M$}{
+		Set the matrix $\mathbf{W}^{m}_{d}$\;	
+		Compute the matrix $\mathbf{G}^{m}$\;
+		Compute $\tilde{\mathbf{p}}^{m}$ (equation \ref{eq:p-tilde-m-SU21})\;
+		$\tilde{\mathbf{p}}[\mathbf{j}^{m}] \gets \tilde{\mathbf{p}}[\mathbf{j}^{m}] + \tilde{\mathbf{p}}^{m}$\;
+		$\mathbf{r} \gets \mathbf{r} - \mathbf{G}[:,\mathbf{j}^{m}] \, \tilde{\mathbf{p}}^{m}$\;
+		$m \gets m + 1$ \;
+	}
+	\caption{Generic pseudo-code for the method proposed by \cite{soler-uieda2021}.}
+	\label{alg:SU21}
+\end{algorithm}
+
+\begin{algorithm}
+	%\SetAlgoLined
+	\Input{}
+	Compute a $D \times 1$ vector $\boldsymbol{\Delta}\mathbf{z}$ whose $i$-th element $\Delta z_{i}$ 
+	is a vertical distance controlling the depth of the $i$-th equivalent source, $i \in \{1:D\}$ \;
+	Set a tolerance $\epsilon$ \;
+	Set a maximum number of iterations $\mathtt{ITMAX}$ \;
+	Set a $D \times 1$ residuals vector $\mathbf{r} = \mathbf{d}$ \;
+	Set a $D \times 1$ vector $\tilde{\mathbf{p}} = \mathbf{0}$ \;
+	Define the maximum absolute value $r_{\mathtt{max}}$ in $\mathbf{r}$ \;
+	$m = 1$ \;
+	\While{$(r_{\mathtt{max}} > \epsilon)$ {\bf and} $(m < \mathtt{ITMAX})$}{
+		Define the coordinates $(x_{\mathtt{max}}, y_{\mathtt{max}}, z_{\mathtt{max}})$ and index $i_{\mathtt{max}}$ of the observation point associated with $r_{\mathtt{max}}$ \;
+		$\tilde{\mathbf{p}}[i_{\mathtt{max}}] \gets \tilde{\mathbf{p}}[i_{\mathtt{max}}] + \left( r_{\mathtt{max}} \, \boldsymbol{\Delta}\mathbf{z}[i_{\mathtt{max}}] \right)$ \;
+		$\mathbf{r} \gets \mathbf{r} - \left( \mathbf{G}[:, i_{\mathtt{max}}] \, \tilde{\mathbf{p}}[i_{\mathtt{max}}] \right)$ \;
+		Define the new $r_{\mathtt{max}}$ in $\mathbf{r}$ \;
+		$m \gets m + 1$ \;
+	}
+	\caption{Generic pseudo-code for the method proposed by \cite{cordell1992}.}
+	\label{alg:C92}
+\end{algorithm}
+
+\begin{algorithm}
+	%\SetAlgoLined
+	\Input{}
+	Set a regular grid of $P$ equivalent sources at a horizontal plane $z_{0}$ \;
+	Set a tolerance $\epsilon$ \;
+	Set a $D \times 1$ residuals vector $\mathbf{r} = \mathbf{d}$ \;
+	Define the maximum absolute value $r_{\mathtt{max}}$ in $\mathbf{r}$ \; 
+	Define the index $i_{\mathtt{max}}$ of $r_{\mathtt{max}}$ \;
+	Define the list of indices $\mathbf{i}_{r}$ of the remaining data in $\mathbf{r}$ \;
+	Define $\mathbf{d}_{e} = \mathbf{d}[i_{\mathtt{max}}] $ \;
+	Compute $\left(\mathbf{F} + \mu \, \mathbf{I}_{D_{e}} \right)$ and $\mathbf{G}_{e}$ \;
+	Compute $\tilde{\mathbf{p}}$ (equation \ref{eq:p-tilde-MS94}) \;
+	Compute $\mathbf{r} = \mathbf{d}[\mathbf{i}_{r}] - \mathbf{G}[\mathbf{i}_{r}, :] \, \tilde{\mathbf{p}}$ \;
+	Define the maximum absolute value $r_{\mathtt{max}}$ in $\mathbf{r}$ \; 
+	\While{$(r_{\mathtt{max}} > \epsilon)$}{
+		Define the index $i_{\mathtt{max}}$ of $r_{\mathtt{max}}$ \;
+		Define the list of indices $\mathbf{i}_{r}$ of the remaining elements in $\mathbf{r}$ \;
+		$\mathbf{d}_{e} \gets \begin{bmatrix} \mathbf{d}_{e} \\ \mathbf{d}[i_{\mathtt{max}}] \end{bmatrix}$ \;
+		Update $\left(\mathbf{F} + \mu \, \mathbf{I}_{D_{e}} \right)$ and $\mathbf{G}_{e}$ \;
+		Update $\tilde{\mathbf{p}}$ (equation \ref{eq:p-tilde-MS94}) \;
+		Update $\mathbf{r} = \mathbf{d}[\mathbf{i}_{r}] - \mathbf{G}[\mathbf{i}_{r}, :] \, \tilde{\mathbf{p}}$ \;
+		Define the maximum absolute value $r_{\mathtt{max}}$ in $\mathbf{r}$ \; 
+	}
+	\caption{Generic pseudo-code for the method proposed by \cite{mendonca-silva1994}.}
+	\label{alg:MS94}
+\end{algorithm}
+
+
+\begin{algorithm}
+	%\SetAlgoLined
+	\Input{}
+	Set $P$ equivalent sources on a horizontal plane $z_{0}$ \;
+	Set a tolerance $\epsilon$ \;
+	Set a maximum number of iterations $\mathtt{ITMAX}$ \;
+	Set an auxiliary vector $\boldsymbol{\sigma}$ \;
+	Compute $\tilde{\mathbf{p}} = \boldsymbol{\sigma} \circ \mathbf{d}$ \;
+	Compute $\mathbf{G}$ (equation \ref{eq:predicted-data-vector}) \;
+	Compute $\mathbf{r} = \mathbf{d} - \mathbf{G} \, \tilde{\mathbf{p}}$ \;
+	Compute $\delta = \nicefrac{\| \mathbf{r} \|}{D}$ \;
+	$m = 1$\;
+	\While{$(\delta > \epsilon)$ {\bf and} $(m < \mathtt{ITMAX})$}{
+		Compute $\boldsymbol{\Delta}\mathbf{p} = \boldsymbol{\sigma} \circ \mathbf{r}$ \;
+		Update $\tilde{\mathbf{p}} \gets \tilde{\mathbf{p}} + \boldsymbol{\Delta}\mathbf{p}$ \;
+		Compute $\boldsymbol{\nu} = \mathbf{G} \, \boldsymbol{\Delta}\mathbf{p}$ \;
+		Update $\mathbf{r} \gets \mathbf{r} - \boldsymbol{\nu}$ \;
+		Compute $\delta = \nicefrac{\| \boldsymbol{\nu} \|}{D}$ \;
+		$m \gets m + 1$\;
+	}
+	\caption{Generic pseudo-code for the iterative method proposed by \cite{siqueira-etal2017}.
+		The symbol ``$\circ$'' denotes the entrywise or Hadamard product \cite[e.g.,][p. 298]{horn-johnson1991} and
+		$\boldsymbol{\sigma}$ is a $P \times 1$ vector whose $j$-th element is the ratio of a predefined element of area centered at the $j$-th
+		equivalent source and the term $2 \pi \gamma$, where $\gamma$ is the gravitational constant.}
+	\label{alg:SOB17}
+\end{algorithm}
+
+\begin{algorithm}
+	%\SetAlgoLined
+	\Input{}
+	Set the regular grid of $P$ equivalent sources on a horizontal plane $z_{0}$ \;
+	Set a tolerance $\epsilon$ and a maximum number of iterations $\mathtt{ITMAX}$ \;
+	Compute the first column $\mathbf{G}[:,1]$ and row $\mathbf{G}[1,:]$ of the sensitivity matrix $\mathbf{G}$ (equation \ref{eq:predicted-data-vector}) 
+	for the particular case in which it has a BTTB structure (equation \ref{eq:matrix-G-BTTB})\;
+	Rearrange the elements of $\mathbf{G}[:,1]$ into matrix $\boldsymbol{\mathcal{C}}$, compute 
+	its 2D-DFT via 2D-FFT and multiply by $\sqrt{4D}$ to obtain a matrix $\boldsymbol{\mathcal{L}}'$ (equation \ref{eq:matrix-L})\;
+	Rearrange the elements of $\mathbf{G}[1,:]$ into matrix $\boldsymbol{\mathcal{C}}$, compute 
+	its 2D-DFT via 2D-FFT and multiply by $\sqrt{4D}$ to obtain a matrix $\boldsymbol{\mathcal{L}}''$ (equation \ref{eq:matrix-L})\;
+	Set $\tilde{\mathbf{p}} = \mathbf{0}$ \;
+	Set $\mathbf{r} = \mathbf{d}$ and compute $\delta = \nicefrac{\| \mathbf{r} \|}{D}$ \;
+	Compute $\boldsymbol{\vartheta} = \mathbf{G}^{\top} \, \mathbf{r}$ (Algorithm \ref{alg:fast-2D-convolution}) and $\rho_{0} = \boldsymbol{\vartheta}^{\top} \boldsymbol{\vartheta}$ \;
+	Set $\tau = 0$ and $\boldsymbol{\eta} = \mathbf{0}$ \;
+	$m = 1$ \;
+	\While{$(\delta > \epsilon)$ {\bf and} $(m < \mathtt{ITMAX})$}{
+		Update $\boldsymbol{\eta} \gets \boldsymbol{\vartheta} + \tau \, \boldsymbol{\eta}$ \;
+		Compute $\boldsymbol{\nu} = \mathbf{G} \, \boldsymbol{\eta}$ (Algorithm \ref{alg:fast-2D-convolution})\;
+		Compute $\upsilon = \nicefrac{\rho_{0}}{\left( \boldsymbol{\nu}^{\top} \boldsymbol{\nu} \right)}$ \;
+		Update $\tilde{\mathbf{p}} \gets \tilde{\mathbf{p}} + \upsilon \, \boldsymbol{\eta}$ \;
+		Update $\mathbf{r} \gets \mathbf{r} - \upsilon \, \boldsymbol{\nu}$ and $\delta \gets \nicefrac{\| \upsilon \, \boldsymbol{\nu} \|}{D}$ \;
+		Compute $\boldsymbol{\vartheta} = \mathbf{G}^{\top} \, \mathbf{r}$ (Algorithm \ref{alg:fast-2D-convolution}) and $\rho = \boldsymbol{\vartheta}^{\top} \boldsymbol{\vartheta}$ \;
+		Compute $\tau = \nicefrac{\rho}{\rho_{0}}$ \;
+		Update $\rho_{0} \gets \rho$ \;
+		$m \gets m + 1$ \;
+	}
+	\caption{Generic pseudo-code for the convolutional equivalent-layer method proposed by 
+		\citet{takahashi-etal2020,takahashi-etal2022}.}
+	\label{alg:TOB20-22}
+\end{algorithm}
+
+\begin{algorithm}
+	%\SetAlgoLined
+	Rearrange the elements of $\mathbf{v}$ (equations \ref{eq:product-Gv-w} and \ref{eq:vectors-v-w}) into the 
+	matrix $\boldsymbol{\mathcal{V}}_{c}$ (equation \ref{eq:aux-BCCB-system-diagonalized-3})\; 
+	Compute $\boldsymbol{\mathcal{F}}_{2N_{B}} \, \boldsymbol{\mathcal{V}}_{c} \, \boldsymbol{\mathcal{F}}_{2N_{b}}$ via 2D-FFT\;
+	Compute the Hadamard product with matrix $\boldsymbol{\mathcal{L}}$ (equation \ref{eq:matrix-L})\;
+	Compute 2D-IDFT via 2D-FFT to obtain matrix $\boldsymbol{\mathcal{W}}_{c}$ (\ref{eq:aux-BCCB-system-diagonalized-3})\;
+	Retrieve $\mathbf{w}$ (equations \ref{eq:product-Gv-w} and \ref{eq:vectors-v-w}) from $\mathbf{w}_{c}$
+	(equations \ref{eq:aux-BCCB-system}--\ref{eq:vectors-vc-wc-ell})\;
+	\caption{Pseudo-code for computing the generic matrix-vector products given by equations \ref{eq:product-Gv-w} 
+		and \ref{eq:product-GTv-w} via fast 2D discrete convolution for a given vector $\mathbf{v}$ (equation \ref{eq:vectors-v-w}) 
+		and matrix $\boldsymbol{\mathcal{L}}$ (equation \ref{eq:matrix-L}).}
+	\label{alg:fast-2D-convolution}
+\end{algorithm}

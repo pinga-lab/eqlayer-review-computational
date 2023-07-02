@@ -1,0 +1,29 @@
+\section{Tables}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{c c c}
+		Reference & Term & flops \\
+		\hline
+		eq. \ref{eq:predicted-data-vetor-reparameterized} & $\mathbf{G \, H}$ & $2DQP$ \\
+		eq. \ref{eq:vector-p-tilde} & $\mathbf{H} \, \tilde{\mathbf{q}}$ & $2PQ$ \\
+		eq. \ref{eq:delta-q-tilde-overdetermined} & $\left(\mathbf{G \, H}\right)^{\top}\left(\mathbf{G \, H}\right)$ & $2Q^{2}D$ \\
+		eq. \ref{eq:delta-q-tilde-overdetermined} & $\left(\mathbf{G \, H}\right)^{\top}\boldsymbol{\delta}_{d} $ & $2QD$ \\
+		eq. \ref{eq:delta-q-tilde-underdetermined} & $\left(\mathbf{G \, H}\right) \, \left(\mathbf{G \, H}\right)^{\top}$ & $2D^{2}Q$ \\
+		eq. \ref{eq:delta-q-tilde-underdetermined} & $\left(\mathbf{G \, H}\right)^{\top}\mathbf{u}$ & $2QD$ \\
+		eq. \ref{eq:Cholesky-factorization} & lower triangle of $\boldsymbol{\mathcal{G}}$ & $\nicefrac{D^{3}}{3}$ or $\nicefrac{Q^{3}}{3}$ \\
+		eq. \ref{eq:Cholesky-solver} & solve triangular systems & $2D^{2}$ or $2Q^{2}$ \\
+		Alg. \ref{alg:CGLS} & $\boldsymbol{\eta} \gets \boldsymbol{\vartheta} + \tau \, \boldsymbol{\eta}$ & 2Q \\
+		Alg. \ref{alg:CGLS} & $\boldsymbol{\vartheta}^{\top} \boldsymbol{\vartheta}$ & 2Q \\
+		Alg. \ref{alg:SOB17} & $\boldsymbol{\sigma} \circ \mathbf{d}$ & $D$ \\
+	\end{tabular}
+	\caption{
+		Total number of flops associated with some useful terms according to \citet[][p. 12]{golub-vanloan2013}.
+		The number of flops associated with equations \ref{eq:Cholesky-factorization} and \ref{eq:Cholesky-solver} 
+		depends if the problem is over or underdetermined.
+		Note that $P = Q$ for the case in which $\mathbf{H} = \mathbf{I}_{P}$ (subsection \ref{subsec:formulation-without-reparameterization}).
+		The term associated with Algorithm \ref{alg:CGLS} is a vector update called \textit{saxpy} \citep[][p. 4]{golub-vanloan2013}.
+		The terms defined here are references to compute the total number of flops throughout the manuscript.
+	}
+	\label{tab:standard-flops}
+\end{table}
