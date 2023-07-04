@@ -164,7 +164,7 @@ def f_SOB17(D, ITMAX):
     assert isinstance(D, int) and (D > 0), 'D must be a positive integer'
     assert isinstance(ITMAX, int) and (ITMAX > 0), 'ITMAX must be a positive integer'
 
-    flops = 2*D**2 + 2*D + ITMAX*(2*D**2 + 3*D)
+    flops = 2*D + ITMAX*(2*D**2 + 3*D)
 
     return flops
 

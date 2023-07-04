@@ -963,12 +963,10 @@ To overcome the high computational cost of these two products, \citet{jirigalatu
 prisms and compute their predicted potential field in the wavenumber domain by using the Gauss-FFT technique
 \cite{zhao-etal2018}.
 
-The iterative method proposed by \citet{siqueira-etal2017} (Algorithm \ref{alg:SOB17}) requires one entrywise product in line $5$ and a matrix-vector followed by subtraction 
-in line $7$ before the while loop. 
-At each iteration, there is another entrywise product (line $11$), a half saxpy 
-(line $12$) and a saxpy (lines $11$ and $12$). Then, we get from table \ref{tab:standard-flops} that the total number of flops is given by:
+The iterative method proposed by \citet{siqueira-etal2017} (Algorithm \ref{alg:SOB17}) requires an entrywise product (line $11$), a half saxpy 
+(line $12$) and a saxpy (lines $13$ and $14$). Then, we get from table \ref{tab:standard-flops} that the total number of flops is given by:
 \begin{equation}
-	f_{\mathtt{SOB17}} = 2D^{2} + 2D + \mathtt{ITMAX} \left( 2D^{2} + 3D \right) \: .
+	f_{\mathtt{SOB17}} = 2D + \mathtt{ITMAX} \left( 2D^{2} + 3D \right) \: .
 	\label{flops:SOB17}
 \end{equation}
 Note that the number of flops per iteration in $f_{\mathtt{SOB17}}$ (equation \ref{flops:SOB17}) has the same order of magnitude, but is smaller than that in
