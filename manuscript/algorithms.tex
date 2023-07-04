@@ -139,9 +139,9 @@
 	Set a tolerance $\epsilon$ \;
 	Set a maximum number of iterations $\mathtt{ITMAX}$ \;
 	Set an auxiliary vector $\boldsymbol{\sigma}$ \;
-	Compute $\tilde{\mathbf{p}} = \boldsymbol{\sigma} \circ \mathbf{d}$ \;
+	Compute $\tilde{\mathbf{p}} = \mathbf{0}$ \;
 	Compute $\mathbf{G}$ (equation \ref{eq:predicted-data-vector}) \;
-	Compute $\mathbf{r} = \mathbf{d} - \mathbf{G} \, \tilde{\mathbf{p}}$ \;
+	Compute $\mathbf{r} = \mathbf{d}$ \;
 	Compute $\delta = \nicefrac{\| \mathbf{r} \|}{D}$ \;
 	$m = 1$\;
 	\While{$(\delta > \epsilon)$ {\bf and} $(m < \mathtt{ITMAX})$}{
