@@ -21,13 +21,10 @@ Figure \ref{fig:flops} shows that the moving data-window strategy by using
 
 The control parameters to run the equivalent-layer methods shown in Figure 
  \ref{fig:flops}  are the following: 
-i) in CGLS, 
-reparameterization approaches \cite[e.g.,][]{oliveirajr-etal2013, mendonca2020}, 
-\cite{siqueira-etal2017}, and 
-\cite{takahashi-etal2020}
-(equations \ref{flops:cgls} \ref{flops:C92}), 
+i) in CGLS, reparameterization approaches \cite[e.g.,][]{oliveirajr-etal2013, mendonca2020}, \cite{siqueira-etal2017}, and 
+\cite{takahashi-etal2020} (equations \ref{flops:cgls} \ref{flops:C92}), 
 \ref{flops:reparameterization-cgls},  \ref{flops:SOB17} and \ref{flops:TOB20}) we set $\mathtt{ITMAX} = 50$; 
-ii) \cite{cordell1992} we set ITMAX = $4 \, D$;
+ii) \cite{cordell1992} we set ITMAX = $6 \, D$; 
 iii) in \cite{leao-silva1989} (equation \ref{flops:LS89}) we set 
 $D'= 49 \: (7 \times 7)$ and $P' = 225 \: (15 \times 15) $; and
 iv) in \cite{soler-uieda2021} (equation  \ref{flops:SU21}) we set 
@@ -36,69 +33,75 @@ $D'= P' = 900 \: (30 \times 30)$.
 \subsection{Synthetic potential-field data}
 \label{subsec:synthetic-data}
 
-We create a model composed of three synthetic bodies:
-a sphere centered at $(x, y, z) = (3, -2, 2) \: \mathrm{km}$, with radius of $1 \: \mathrm{km}$;
-a sphere centered at $(x, y, z) = (1, 2.5, 1.8) \: \mathrm{km}$, with radius of $750 \: \mathrm{m}$; and
-a right prism having polygonal horizontal cross-section, top at $z = 900 \: \mathrm{m}$ and thickness $600 \: \mathrm{m}$.
-The density contrasts of the upper left sphere, upper right sphere and prism are, respectively, 
-$600 \: \mathrm{kg}/\mathrm{m}^{3}$, $-500 \: \mathrm{kg}/\mathrm{m}^{3}$ and to $550 \: \mathrm{kg}/\mathrm{m}^{3}$. 
-All synthetic bodies have a total-magnetization vector with intensity $3.46 \: \mathrm{A}/\mathrm{m}$, inclination $35.26^{\circ}$
-and declination $45.0^{\circ}$.
-We consider a main geomagnetic field with constant inclination $20.0^{\circ}$ and declination $35.0^{\circ}$.
+We create a model composed of several rectangular prisms that can be split into three groups.
+The first is composed of $300$ small cubes with top at $0 \: \mathrm{m}$ and side lengths
+defined according to a pseudo-random variable having uniform distribution from 
+$100$ to $200 \: \mathrm{m}$.
+Their density contrasts are defined by a pseudo-random variable uniformly distributed
+from $1000$ to $2000 \: \mathrm{kg / m^{3}}$.
+These prisms produce the short-wavelength component of the simulated gravity data.
+The $4$ prisms forming the second group of our model have tops varying from 
+$10$ to $100 \: \mathrm{m}$ and bottom from $1010$ to $1500 \: \mathrm{m}$.
+They have density contrasts of $1500$, $-1800$, $-3000$ and $1200  \: \mathrm{kg / m^{3}}$
+and side lengths varying from $1000$ to $4000 \: \mathrm{m}$.
+These prisms produce the mid-wavelength component of the simulated gravity data.
+There is also a single prisms with top at $1000 \: \mathrm{m}$, bottom at 
+$1500 \: \mathrm{m}$ and side lengths of $4000$ and $6000 \: \mathrm{m}$.
+This prisms has density contrast is $-900 \: \mathrm{kg / m^{3}}$ and produces the
+long-wavelength of our synthetic gravity data.
 
-We have computed noise-free gravity disturbance and total-field anomaly data $\mathbf{d}$ produced by the
-model on the same regularly spaced grid of $50 \times 50$ points at $z = 50 \: \mathrm{m}$
-(Figures \ref{fig:4}A and \ref{fig:7}A).
-We have also simulated additional $L = 20$ gravity data sets $\mathbf{d}^{\ell}$, $\ell \in \{1:L\}$, 
-by adding pseudo-random Gaussian noise 
-with zero mean and crescent standard deviations to the noise-free data (Figure \ref{fig:3}A).
-The standard deviations vary from $0.5\%$ to $10\%$ of the maximum absolute value in the noise-free data.
-We applied the same procedure to produce additional $20$ noise-corrupted magnetic data sets from the
-noise-free data shown in Figure \ref{fig:7}A.
-Figures \ref{fig:4}B and \ref{fig:7}B show, respectively, the gravity disturbance and total-field anomaly data 
-corrupted with maximum noise level.
-The remaining noise-corrupted gravity and magnetic data are not shown.
+We have computed noise-free gravity disturbance and gravity-gradient tensor components 
+produced by our model on a regularly spaced grid of $50 \times 50$ points at 
+$z = -100 \: \mathrm{m}$ (Figure \ref{fig:noise-free-data}).
+We have also simulated additional $L = 20$ gravity disturbance data sets $\mathbf{d}^{\ell}$, $\ell \in \{1:L\}$, 
+by adding pseudo-random Gaussian noise with zero mean and crescent standard deviations to the noise-free data (not shown).
+The standard deviations vary from $0.5\%$ to $10\%$ of the maximum absolute value in the noise-free data,
+which corresponds to $0.21$ and $4.16 \: \mathrm{mGal}$, respectively.
 
 \subsection{Stability analysis and upward-continued data}
 
-We set two planar equivalent layers having one source below each datum at a constant vertical coordinate $z = 300 \: \mathrm{m}$.
-Note that, in this case, both layers have a number of sources $P$ equal to the number of data $D$.
-One layer is formed by point masses and is applied to the synthetic gravity data.
-The other is applied to the synthetic magnetic data and is composed of dipoles.
+We set a planar equivalent layer of point masses having one source below each datum at a constant vertical coordinate $z \approx 512.24 \: \mathrm{m}$.
+This depth was set by following the \citeauthor{dampney1969}'s (\citeyear{dampney1969}) criterion (see Subsection \ref{subsec:spatial-distribution-sources}),
+so that the vertical distance $\Delta z$ between equivalent sources and the simulated data is equal to $3 \times$ the grid spacing 
+($\Delta x = \Delta y \approx 204.08 \: \mathrm{m} $).
+Note that, in this case, the layer has a number of sources $P$ equal to the number of data $D$.
 
 We have applied the Cholesky factorization (equations \ref{eq:Cholesky-factorization} and \ref{eq:Cholesky-solver}), 
+CGLS (Algorithm \ref{alg:CGLS}), the iterative method of \citet{siqueira-etal2017} (Algorithm \ref{alg:SOB17}), 
 the iterative deconvolution (Algorithms \ref{alg:TOB20-22} and \ref{alg:fast-2D-convolution}) proposed by 
-\citet{takahashi-etal2020, takahashi-etal2022} and the direct deconvolution (equations \ref{eq:direct-deconvolution} and \ref{eq:matrix-L-Wiener-deconvolution})
-with four different values for the parameter $\zeta$ to the $21$ gravity and $21$ magnetic data sets.
+\citet{takahashi-etal2020} (Algorithm \ref{alg:TOB20-22}) and the direct deconvolution 
+(equations \ref{eq:direct-deconvolution} and \ref{eq:matrix-L-Wiener-deconvolution})
+with four different values for the parameter $\zeta$ to the $21$ gravity data sets.
 
 For each method, we have obtained one estimate $\tilde{\mathbf{p}}$ from the noise-free gravity data $\mathbf{d}$
 and $L=20$ estimates $\tilde{\mathbf{p}}^{\ell}$ from the noise-corrupted gravity data $\mathbf{d}^{\ell}$, $\ell \in \{1:L\}$,
 for the planar equivalent layer of point masses, totaling $21$ estimated parameter vectors and 
 $20$ pairs $\left( \Delta p^{\ell} \: , \: \Delta d^{\ell} \right)$ of model and data perturbations
 (equations \ref{eq:model-perturbation} and \ref{eq:data-perturbation}).
-Other $21$ estimates for the parameter vector and 
-$20$ pairs $\left( \Delta p^{\ell} \: , \: \Delta d^{\ell} \right)$ were obtained in the same way for the 
-equivalent layer of dipoles by using the synthetic magnetic data.
-Figures \ref{fig:3} and \ref{fig:6} show the numerical stability curves computed with each method for 
-synthetic gravity and magnetic data, respectively.
+Figure \ref{fig:stability-comparison} shows the numerical stability curves computed with each method for 
+the synthetic gravity data.
 
-All these $42$ estimated parameters vectors ($21$ for gravity and $21$ for magnetic data) were obtained by solving 
+All these $21$ estimated parameters vectors were obtained by solving 
 the overdetermined problem (equation \ref{eq:delta-q-tilde-overdetermined}) with the same method for the particular case in which
 $\mathbf{H} = \mathbf{I}$ (equation \ref{eq:reparameterization} and 
 subsection \ref{subsec:formulation-without-reparameterization}),
 $\mathbf{W}_{d} = \mathbf{W}_{q} = \mathbf{I}$ (equations \ref{eq:function-Phi} and \ref{eq:function-Theta}) and
 $\bar{\mathbf{p}} = \mathbf{0}$ (equation \ref{eq:reparameterization-reference}), where $\mathbf{I}$ is the identity of order $D$.
 
-Figure \ref{fig:3} shows how the numerical stability curves vary as the level of the noise is increased for the gravimetric data. We can see that for all methods, a linear tendency is observed as it is expected. The inclination of the straight line indicates the stability of each method. 
-As shown in Figure \ref{fig:3}, the deconvolutional method without stabilization parameter (blue dots with $\zeta = 0$ ) exhibits high instability, emphasizing the necessity of using the Wiener filter 
-($\zeta > 0$ in equation \ref{eq:matrix-L-Wiener-deconvolution}) to achieve accurate parameter estimation. 
-Using these gravimetric data, an optimal stabilization parameter 
-$\zeta = 10^{-22}$ (green dots) is necessary to yield a stable solution and prevent overshooting the smootheness of the solution.
-For the magnetic data, Figure \ref{fig:6} shows a very similar behavior of the stability as the previous case. 
-In this case, the Wiener parameter seems to have the best solution for $\zeta = 10^{-14}$ (green dots). 
+Figure \ref{fig:stability-comparison} shows how the numerical stability curves vary as the level of the noise is increased. 
+We can see that for all methods, a linear tendency is observed as it is expected. The inclination of the straight line indicates the stability of each method. 
+As shown in Figure \ref{fig:stability-comparison}, the direct deconvolution with $\zeta = 0$ exhibits a high slope, which indicates high instability and 
+emphasizes the necessity of using the Wiener filter ($\zeta > 0$ in equation \ref{eq:matrix-L-Wiener-deconvolution}). 
 
-For both potential-field data, the estimated slopes (Figures \ref{fig:3} and \ref{fig:6}) obtained by using direct deconvolution with an optimum $\zeta$ (green dots), Cholesky factorization (black dots) and iterative deconvolution (red dots) proposed by \cite{takahashi-etal2020} are close to each other.
-This result suggest that the direct deconvolution with an optimum Wiener parameter seems to be one that produces a low slope for the straight line in the stability analysis.
+The estimated stability parameters $\kappa$ (equation \ref{eq:condition-number}) obtained for the Cholesky factorization, CGLS and
+iterative deconvolution are close to each other (Figures \ref{fig:stability-comparison}).
+They are slightly smaller than that obtained for the iterative method of \citet{siqueira-etal2017} ($\mathtt{SOB17}$).
+Note that by varying the parameter $\zeta$ (equation \ref{eq:matrix-L-Wiener-deconvolution}) it is possible to obtain different 
+stability parameters $\kappa$ for the direct deconvolution. There is no apparent rule to set $\zeta$.
+A practical criterion can be the maximum $zeta$ producing a satisfactory data fit. Overshoot values tend to exaggeratedly smooth the 
+predicted data. 
+
+PAREI AQUI - TA PUXADO
 
 Figures \ref{fig:5} and \ref{fig:8} present the comparison between the residuals due the equivalent layers obtained with the Cholesky factorization, 
 iterative deconvolution and direct deconvolution with optimum $\zeta$ using, respectively, gravity and magnetic data (Figures \ref{fig:3} and \ref{fig:6}).

@@ -55,67 +55,48 @@
 			\includegraphics[width=9cm]{Fig/noise-free-data}
 		\end{center}
 	\caption{
-		Synthetic gravity disturbance data (in $\mathrm{mGal}$). 
+		Noise-free gravity data produced by an ensemble of rectangular prisms (not shown). 
 		The data are located on a regular grid of $50 \times 50$ points. 
-		Panel (A) shows the noise-free data. Panel (B) shows the synthetic data corrupted 
-		with a pseudorandom Gaussian noise having zero mean and standard deviation equal to $10\%$
-		of the maximum absolute value in the noise-free data.
-		The black lines represent the projection of the synthetic bodies on the $xy$ plane.
+		Panels \textbf{(A)}--\textbf{(F)} show, respectively, the $xx$, $xy$, $xz$, $yy$, $yz$ and
+		$zz$ component of the gravity-gradient tensor in Eötvös (E).
+		Panel \textbf{(G)} shows the gravity disturbance in milligals (mGal).
 		}
 	\label{fig:noise-free-data}
 \end{figure}
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=9cm]{Fig/stability-curves}
+		\includegraphics[width=9cm]{Fig/stability-comparison}
 	\end{center}
 	\caption{
 		Numerical stability curves obtained for the $21$ synthetic gravity data sets 
-		by using the Cholesky factorization with $\mu \approx 10^{-22}$, the iterative deconvolution
-		($\mathtt{TOB20}$) proposed by \citet{takahashi-etal2020} with $40$ iterations (Algorithm \ref{alg:TOB20-22}) 
+		by using the Cholesky factorization with $\mu \approx 2 \times 10^{-2}$, 
+		CGLS, iterative method (($\mathrm{SOB17}$)) and iterative deconvolution
+		($\mathtt{TOB20}$) with $50$ iterations each (Algorithms \ref{alg:CGLS}, \ref{alg:SOB17} and \ref{alg:TOB20-22}) 
 		and the direct deconvolution ($\mathtt{deconv.}$) computed with four different values for $\zeta$ 
-		(equation \ref{eq:matrix-L-Wiener-deconvolution}): $0$, $10^{-20}$ (overshoot), $10^{-22}$ (optimal)
-		and $10^{-24}$ (suboptimal).
-		The stability parameter $\kappa$ (equation \ref{eq:condition-number}) obtained for the six curves
-		described above are $24.66$ ($\mathtt{Cholesky}$), $25.81$ ($\mathtt{TOB20}$), $90.93$, $1.95$, $17.47$ and $41.24$ ($\mathtt{deconv.}$ with null, overshoot, optimal and suboptimal $\zeta$).
+		(equation \ref{eq:matrix-L-Wiener-deconvolution}): $0$, $10^{-18}$ (overshoot), $10^{-22}$ (optimal)
+		and $10^{-28}$ (suboptimal).
+		The stability parameter $\kappa$ (equation \ref{eq:condition-number}) obtained for the eight curves described above are $2.29$ ($\mathtt{Cholesky}$), $2.38$ 
+		($\mathtt{CGLS}$), $3.25$ ($\mathtt{SOB17}$), $2.38$ ($\mathtt{TOB20}$), $4.83$, $1.59$, $1.11$ and $0.93$ ($\mathtt{deconv.}$ with null, suboptimal, optimal and overshoot 1$\zeta$).
 		}
-	\label{fig:stability-curves}
+	\label{fig:stability-comparison}
 \end{figure}
 
 \begin{figure}[htbp]
 	\begin{center}
-		\includegraphics[width=10cm]{Fig/residuals-comparison}
+		\includegraphics[width=10cm]{Fig/TOB20_residuals}
 	\end{center}
 	\caption{
-		Residuals between the predicted data (equation \ref{eq:predicted-data-vector}) due to the estimated parameter vector
-		$\tilde{\mathbf{p}}$ obtained with the gravity data having maximum noise level (Figure \ref{fig:4}B) by using
-		\textbf{(A)} the Cholesky factorization with $\mu \approx 10^{-22}$, 
-		\textbf{(B)} the iterative deconvolution ($\mathtt{TOB20}$) proposed by \citet{takahashi-etal2020} with $40$ 
-		iterations (Algorithm \ref{alg:TOB20-22}) and
-		\textbf{(C)}--\textbf{(F)} the direct deconvolution ($\mathtt{deconv.}$) computed, respectively, with four different 
-		values for $\zeta$ (equation \ref{eq:matrix-L-Wiener-deconvolution}): $0$, $10^{-20}$ (overshoot), $10^{-22}$ (optimal)
-		and $10^{-24}$ (suboptimal).
-		All values are in $\mathrm{mGal}$.
+		Residuals between the gravity data predicted by the equivalent layer estimated with the 
+		iterative deconvolution ($\mathtt{TOB20}$) (Algorithm \ref{alg:TOB20-22}).
+		The inverse problems was solved by using the noise-corrupted gravity 
+		disturbance having the maximum noise level (not shown).
+		Panels \textbf{(A)}--\textbf{(F)} show the residuals between the predicted and noise-free
+		gravity gradient data (Figure \ref{fig:noise-free-data}). The values are in Eötvös (E).
+		\textbf{(G)} Shows the residuals between the predicted and noise-corrupted gravity disturbances.
+		The values are in milligals (mGal).
 		}
-	\label{fig:residuals-comparison}
-\end{figure}
-
-\begin{figure}[htbp]
-	\begin{center}
-		\includegraphics[width=10cm]{Fig/upward-continuation}
-	\end{center}
-	\caption{
-		Upward continuation of the synthetic gravity data with maximum noise level (Figure \ref{fig:4}B).
-		\textbf{(A)} Noise-free gravity data produced by the model at $z = -500 \: \mathrm{m}$. 
-		\textbf{(B)}--\textbf{(E)} Continued data due to the estimated parameter vector $\tilde{\mathbf{p}}$ obtained, respectively,
-		by using the Cholesky factorization with $\mu \approx 10^{-22}$, 
-		the iterative deconvolution ($\mathtt{TOB20}$) proposed by \citet{takahashi-etal2020} with $40$ 
-		iterations (Algorithm \ref{alg:TOB20-22}) and
-		the direct deconvolution ($\mathtt{deconv.}$) computed, respectively, with two different 
-		values for $\zeta$ (equation \ref{eq:matrix-L-Wiener-deconvolution}): $0$ and $10^{-22}$ (optimal).
-		All values are in $\mathrm{mGal}$.
-		}
-	\label{fig:upward-continuation}
+	\label{fig:residuals-TOB20}
 \end{figure}
 
 \begin{figure}[htbp]
