@@ -26,21 +26,20 @@ South American Plate that became tectonically stable at the beginning of Neoprot
 This area has been the target of intensive exploration at least since the final of the '60s, after the discovery of large iron ore deposits. 
 There are several greenstone belts in the region, among them are the Andorinhas, Inajá, Cumaru, Caraj{\'a}s, Serra Leste, Serra Pelada, and Sapucaia 
 \citep{santos-etal2000}. The mineralogic and petrologic studies in granite stocks show a variety of minerals found in the province, such as 
-amphibole, plagioclase, biotite, ilmenite, and magnetite \citep{cunha-etal2016}. These two latter minerals contribute to the high magnetic 
-response in the CMP area. This fact opens the opportunity for potential field applications for the geophysical description of the area. 
+amphibole, plagioclase, biotite, ilmenite, and magnetite \citep{cunha-etal2016}. 
 
 \subsection{Potential-field data}
 
 The field data used here were acquired obtained from an airborne survey conducted by Lasa Prospec{\c c}{\~o}es S/A. 
 and Microsurvey Aerogeof{\'i}sica Consultoria Cient{\'i}fica Ltda. between April/2013 and October/2014.
-The aeromagnetic data were acquired by the Geological Survey of Brazil-CPRM (ACHO QUE A CPRM NÃO ADQUIRI DADOS).
-The survey area covers $\approx 58000 \: \mathrm{km}^2$ with high-resolution gravity and magnetic data. 
+The survey area covers $\approx 58000 \: \mathrm{km}^2$ with high-resolution gravity data. 
 The flight and the tie lines were acquired and spaced at $3 \: \mathrm{km}$  and $12 \: \mathrm{km}$ oriented in the 
 directions $N-S$ and $E-W$, respectively, with a mean flight height of $900 \: \mathrm{m}$ above the ground. 
-For both applications, we have interpolated gravity and magnetic anomalies data, calculating the data set in a grid of 
+Figure %\ref{fig:}  
+shows the interpolated aerogravimetric data in a grid of 
 $1000 \times 500$ ($D = 500,000$ observation points) at the same mean flight height. 
 %About the computational resources, we processed both data on an Intel Core i7 7700HQ@2.8 GHz processor and 16GB RAM. 
-The interpolated aerogravimetric and aeromagnetic data are shwon, respectively, in Figures \ref{fig:9} and \ref{fig:11}. 
+
 
 \subsection{Applications}
 
@@ -71,23 +70,6 @@ Considering the processing time, the iterative and direct deconvolutions took  $
 These results demonstrate the efficiency of both the iterative and direct deconvolution methods in processing large gravimetric datasets from extensive areas with dense data coverage. 
 It is worth noting that the direct deconvolution method exhibits faster processing times compared to the iterative deconvolution, which aligns with expectations
 
-We also apply the iterative and direct deconvolutions to compute the upward continuation of the 
-total-field anomalies (Figure \ref{fig:11}) over CMP in the Amazon craton, Brazil.
-Due to the extensive survey area, the main magnetic field direction varies significantly across the area 
-and thus we consider a mean direction for the main magnetic field with 
-declination $-19.865^{\circ}$  and inclination $-7.43915^{\circ}$.
-We set a magnetization direction for the equivalent sources equal to the main magnetic field direction.
-Besides, we set the equivalent layer at constant depth $900 \, \: \mathrm{m}$.
-After estimating the density distributions (not shown), we obtain 
-the predicted data (Figure \ref{fig:12}A) and residuals (Figure \ref{fig:12}B) 
-using the iterative deconvolution with a mean residual of $\approx 0.06 \, nT$ 
-and a standard deviation of $\approx 1.97 \, \mathrm{nT}$. 
-Similarly, we generate the predicted data (Figure \ref{fig:12}C) and residuals (Figure \ref{fig:12}D) using the direct deconvolution method with a mean residual of $\approx 18.99 \, nT$ 
-and a standard deviation of $\approx 33.64 \, \mathrm{nT}$. 
-The observed total-field anomaly upward-continued  at a height of $-3500 \: \mathrm{m}$
-by using the iterative and direct deconvolutions are shown in Figures \ref{fig:12}E and F, respectively.
-Considering the processing time to upward-continued the magnetic data, the iterative and direct deconvolutions took, respectively,  $ \approx 82.08  \, \mathrm{s}$ and $ \approx 0.89  \, \mathrm{s}$, highlighting the faster processing time of the direct deconvolution method compared to the iterative deconvolution.
-Despite the difference in processing time between the two deconvolutions and taking into account the mean and standard deviations of the residuals, our conclusion is that the iterative deconvolution provides a better fit to the total-field anomalies compared to the direct deconvolution.
 
 %\section{Real data application}
 %\label{sec:real_data}
