@@ -58,7 +58,7 @@ by adding pseudo-random Gaussian noise with zero mean and crescent standard devi
 The standard deviations vary from $0.5\%$ to $10\%$ of the maximum absolute value in the noise-free data,
 which corresponds to $0.21$ and $4.16 \: \mathrm{mGal}$, respectively.
 
-\subsection{Stability analysis and upward-continued data}
+\subsection{Stability analysis and gravity-gradient components}
 
 We set a planar equivalent layer of point masses having one source below each datum at a constant vertical coordinate $z \approx 512.24 \: \mathrm{m}$.
 This depth was set by following the \citeauthor{dampney1969}'s (\citeyear{dampney1969}) criterion (see Subsection \ref{subsec:spatial-distribution-sources}),
@@ -98,40 +98,35 @@ iterative deconvolution are close to each other (Figures \ref{fig:stability-comp
 They are slightly smaller than that obtained for the iterative method of \citet{siqueira-etal2017} ($\mathtt{SOB17}$).
 Note that by varying the parameter $\zeta$ (equation \ref{eq:matrix-L-Wiener-deconvolution}) it is possible to obtain different 
 stability parameters $\kappa$ for the direct deconvolution. There is no apparent rule to set $\zeta$.
-A practical criterion can be the maximum $zeta$ producing a satisfactory data fit. Overshoot values tend to exaggeratedly smooth the 
+A practical criterion can be the maximum $\zeta$ producing a satisfactory data fit. Overshoot values tend to exaggeratedly smooth the 
 predicted data. 
 
-PAREI AQUI - TA PUXADO
+We inverted the noise-corrupted gravity disturbance  with the highest noise level (not shown) 
+to estimate an equivalent layer (not shown) via iterative deconvolution (Algorithm \ref{alg:TOB20-22}).
+Figure \ref{fig:residuals-TOB20}\textbf{(G)} shows the residuals (in mGal) between the predicted and noise-corrupted 
+gravity disturbances.
+As we can see, the residuals are uniformly distributed on simulated area and suggest that the equivalent layer
+produces a good data fit.
+This can be verified by inspecting the histogram of the residuals between the predicted and noise-corrupted 
+gravity disturbances shown in panel \textbf{(G)} of Figure \ref{fig:histograms-TOB20}.
 
-Figures \ref{fig:5} and \ref{fig:8} present the comparison between the residuals due the equivalent layers obtained with the Cholesky factorization, 
-iterative deconvolution and direct deconvolution with optimum $\zeta$ using, respectively, gravity and magnetic data (Figures \ref{fig:3} and \ref{fig:6}).
-The inverted data are those corrupted with the highest noise level (Figures \ref{fig:4}B and \ref{fig:7}B).
+Using the estimated layer, we have computed the gravity-gradient data (not shown) at the observations points.
+Figures \ref{fig:residuals-TOB20} \textbf{(A)}--\textbf{(F)} show the residuals (in Eötvös)
+between the predicted (not shown) and noise-free gravity-gradient data 
+(Figure \ref{fig:noise-free-data}).
+These figures show that the iterative deconvolution (Algorithm \ref{alg:TOB20-22}) could predict the six components of the
+gravity-gradient tensor with a good precision, which can also be verified in the corresponding histograms shown in 
+Figure \ref{fig:histograms-TOB20}.
 
-Using the gravimetric data, the Cholesky factorization (Figure \ref{fig:5}A), the iterative deconvolution (Figure \ref{fig:5}B) proposed by \cite{takahashi-etal2020}, and the direct deconvolution with an optimum $\zeta = 10^{-22}$ (Figure \ref{fig:5}E) yield acceptable data fitting despite their significant difference in floating-point operations.
-In contrast, the residuals obtained using direct deconvolutional method with a Wiener stabilization  $\zeta$ equal to 
-zero (Figure \ref{fig:5}C), 
-a high value of $\zeta = 10^{-20}$ (Figure \ref{fig:5}D), and 
-a low value of  $\zeta = 10^{-24}$ (Figure \ref{fig:5}F)
-result in unacceptable data fitting.
+In the supplementary material, we show the residuals between the gravity data predicted by the equivalent layer estimated by using the following methods:
+i)  the CGLS method (Algorithm \ref{alg:CGLS});
+ii) the  Cholesky factorization (equations \ref{eq:Cholesky-factorization} and \ref{eq:Cholesky-solver});
+iii) the iterative method proposed by \citet{siqueira-etal2017} (Algorithm \ref{alg:SOB17});
+iv) the direct deconvolution with  optimal value of $\zeta = 10^{-22}$ 
+(equation \ref{eq:matrix-L-Wiener-deconvolution}); and
+v) the iterative method  proposed by \cite{cordell1992} (Algorithm \ref{alg:C92}).
 
-Using the magnetic data, Figure \ref{fig:8} shows a very similar behavior 
-as in the previous case, indicating a similar pattern.
-Hence, the residuals obtained using the Cholesky factorization 
-(Figure \ref{fig:8}A), the iterative deconvolution (Figure \ref{fig:8}B) proposed by \cite{takahashi-etal2020}, and the direct deconvolution with an optimum $\zeta = 10^{-14}$ (Figure \ref{fig:8}E) show acceptable data fittings. 
-The remainder residuals (direct deconvolutional method with $\zeta =0$ 
-in Figure \ref{fig:8}C, $\zeta = 10^{-12}$ in Figure \ref{fig:8}D, and 
-$\zeta = 10^{-16}$ in Figure \ref{fig:8}F) show that the estimated equivalent layers do not fit the noisy magnetic data.
 
-The upward continuation of the potential-field data is a processing technique to predict the data in a higher altitude. 
-In practice, the interpreter expects a lower amplitude signal and smoother data as the high frequency anomalies tends to disapear. 
-Figure  \ref{fig:grav_up}A shows the true modeled upward gravity data at a height of $-500$ m. 
-Figures \ref{fig:grav_up}B--E show the results of the upward processing obtained by using the Cholesky factorization,  the iterative deconvolution proposed by \cite{takahashi-etal2020} and the direct deconvolution with $\zeta = 0$ and $\zeta = 10^{-22}$ (optimum value), respectively.
-Except the direct deconvolutional method without stabilization ($\zeta = 0$, Figure \ref{fig:grav_up}D), all the three most stable equivalent-layer methods predict the upward-continued gravity data very reasonable.
-
-Figure \ref{fig:mag_up} shows the comparison between the true
-(Figure \ref{fig:mag_up}A)  and the predicted  (Figures \ref{fig:mag_up}B--E) upward-continued magnetic data at a height of $-1400$ m. 
-As in the gravimetric case, the predicted upward-continued magnetic data via Cholesky factorization (Figure \ref{fig:mag_up}C),  the iterative deconvolution proposed by \cite{takahashi-etal2020} (Figure \ref{fig:mag_up}D) and the direct deconvolution with optimum value of  $\zeta = 10^{-14}$  
-(Figure \ref{fig:mag_up}E) are acceptable, except the direct deconvolutional method without stabilization ($\zeta = 0$, Figure Figure \ref{fig:mag_up}D).
 
 %Gravity synthetic statistics to be included:
 %Means

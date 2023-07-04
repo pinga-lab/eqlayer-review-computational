@@ -30,45 +30,41 @@ amphibole, plagioclase, biotite, ilmenite, and magnetite \citep{cunha-etal2016}.
 
 \subsection{Potential-field data}
 
-The field data used here were acquired obtained from an airborne survey conducted by Lasa Prospec{\c c}{\~o}es S/A. 
+The field data used here were obtained from an airborne survey conducted by Lasa Prospec{\c c}{\~o}es S/A. 
 and Microsurvey Aerogeof{\'i}sica Consultoria Cient{\'i}fica Ltda. between April/2013 and October/2014.
-The survey area covers $\approx 58000 \: \mathrm{km}^2$ with high-resolution gravity data. 
-The flight and the tie lines were acquired and spaced at $3 \: \mathrm{km}$  and $12 \: \mathrm{km}$ oriented in the 
-directions $N-S$ and $E-W$, respectively, with a mean flight height of $900 \: \mathrm{m}$ above the ground. 
-Figure %\ref{fig:}  
-shows the interpolated aerogravimetric data in a grid of 
-$1000 \times 500$ ($D = 500,000$ observation points) at the same mean flight height. 
-%About the computational resources, we processed both data on an Intel Core i7 7700HQ@2.8 GHz processor and 16GB RAM. 
+The survey area covers $\approx 58000 \: \mathrm{km}^2$ between latitudes $-8^{\circ} -- -5^{\circ}$
+and longitudes $-53^{\circ} -- -49.5^{\circ}$ referred to the WGS-84 datum.
+We obtained the horizontal coordinates $x$ and $y$ already in the UTM zone 22S. 
+The flight and tie lines are spaced at $3 \: \mathrm{km}$  and $12 \: \mathrm{km}$, with orientation along 
+directions $N-S$ and $E-W$, respectively.
+The data are placed at an approximately constant distance of $900 \: \mathrm{m}$ above the ground.
+Figure \ref{fig:carajas-data} shows the $D = 500,000$ aerogravimetric data on a grid of 
+$1000 \times 500$ observation points with $\Delta x = 358.12 \: \mathrm{m}$ and $\Delta y = 787.62 \: \mathrm{m}$. 
 
+\subsection{Potential-field transformation}
 
-\subsection{Applications}
+We applied the equivalent-layer technique to the observed data (Figure \ref{fig:carajas-data}) with the
+purpose of illustrating how to estimate the gravity-gradient tensor over the study area.
+We used an equivalent layer layout with one source located below each datum
+(so that $P=D$) on a horizontal plane having a vertical distance $\Delta z \approx 2362.86 \: \mathrm{m}$ from the observation plane.
+This setup is defined by setting $\Delta z \approx 3 \, dy$, which follows the same strategy of \citet{reis-etal2020}.
+We solve the linear inverse problem for estimating the physical-property distribution on the layer by
+using the iterative deconvolution (Algorithm \ref{alg:TOB20-22}) with a maximum number of $50$ iterations. 
+Actually, the algorithm have converged with only $18$ iterations.
 
-%PAREI AQUI
+Figure \ref{fig:carajas-grav-gradient}\textbf{(G)} shows the histogram of the residuals between the predicted 
+(not shown) and observed data (Figure \ref{fig:carajas-data}).
+As we can see, the iterative deconvolution produced an excellent data fit.
+By using the estimated layer, we have computed the gravity-gradient tensor components at the observation points.
+The results are shown in Figures \ref{fig:carajas-grav-gradient}\textbf{(A)}--\textbf{(F)}.
 
-In all applications, we set the same equivalent sources layout with one source located below each datum
-(so $P=D$) on a horizontal plane distant $1200 \: \mathrm{m}$ from the observations.
-This setup is composed by a grid of $1000 \times 500$ equivalent sources ($M = 500,000$). 
-%positioned below the observation plane, but a different depth in each application.
-%We set a depth for the equivalent layer equal to $1200 \, m$ below the observation plane. 
-
-For performing the upward continuation of the gravimetric data (Figure \ref{fig:9}) over CMP in the Amazon craton, we apply the two equivalent-layer methods (iterative and direct deconvolutions).
-By applying the iterative and direct deconvolutions, we estimated density distributions (not shown)
-that produced the predicted gravimetric data shown, respectively, in  Figures \ref{fig:10}A and C.
-The gravimetric residuals obtained by  both the iterative (Figure \ref{fig:10}B) and
-direct (Figure \ref{fig:10}D) deconvolutions are close to zero for most of the survey area
-indicating that both methods achieve acceptable data fittings.
-For the iterative deconvolution, the residuals have a mean of $\approx 0.0005$ mGal and a standard deviation 
-of $\approx 0.16$ mGal.
-For the direct deconvolution, the mean and standard deviation of the residuals are $\approx 0.46$ mGal and 
-$\approx 1.23$ mGal, respectively. 
-We stress that the residuals from the direct deconvolution (Figure \ref{fig:10}D) are greater than  
-the iterative deconvolution (Figure \ref{fig:10}B).
-A possible reason for this difference may be  the border effects.
-Figures \ref{fig:10}E and F show the upward-continued gravimetric data at a height of $-3500 \: \mathrm{m}$
-by using the iterative and direct deconvolutions, respectively.
-Considering the processing time, the iterative and direct deconvolutions took  $\approx 9.18 \: \mathrm{s}$ and $\approx 0.53 \: \mathrm{s}$, respectively. 
-These results demonstrate the efficiency of both the iterative and direct deconvolution methods in processing large gravimetric datasets from extensive areas with dense data coverage. 
-It is worth noting that the direct deconvolution method exhibits faster processing times compared to the iterative deconvolution, which aligns with expectations
+Considering the processing time, the iterative deconvolution took  $\approx 1.98 \: \mathrm{s}$ to execute the $18$
+iterations for estimating the physical-property distribution on the layer by inverting the $D = 500,000$ observed data.
+The code was run in a modest computer with $16,0 \: \mathrm{GiB}$ of memory and processor 
+$\mathrm{12th \, Gen \, Intel\textregistered \, Core\texttrademark \, i9-12900H \times 20}$.
+Given the estimated equivalent layer, the gravity-gradient components shown in Figure \ref{fig:carajas-grav-gradient} were computed in
+$\approx 0.52 \: \mathrm{s}$.
+These results demonstrate the efficiency of the iterative deconvolution method in processing large datasets.
 
 
 %\section{Real data application}
