@@ -1,3 +1,7 @@
+## Jupyter notebook files:
+*/.ipynb_checkpoints/
+*/__pycache__/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
