@@ -1,4 +1,4 @@
-\section{Introduction}
+3333\section{Introduction}
 
 The equivalent-layer technique has been used by exploration geophysicists for processing potential-field 
 data since the late 1960s \citep{dampney1969}. 
@@ -127,4 +127,11 @@ a selected set of methods (e.g., \cite{\cite{leao-silva1989};  \cite{cordell1992
 \cite{soler-uieda2021}; and direct deconvolution). 
 To test the stability, we are using the linear system sensitivity to noise as a comparison parameter for the fastest of these methods alongside the classical normal equations. 
 A potential-field transformation will also be used to evaluate the quality of the equivalent sources estimation results using both synthetic and real data from Carajás Mineral Province, Brazil.
+
+In the following sections, we will address the theoretical bases of the equivalent-layer technique, including aspects such as the sensitivity matrix, layer depth and spatial distribution and the total number of equivalent sources. 
+Then, we will explore the general formulation and solution of the linear inverse problem for the equivalent-layer technique, including discussions on linear system solvers. 
+Additionally, we will quantify the required arithmetic operations for a given equivalent-layer method, assessing the number of floating-point operations involved. 
+Next, we will evaluate the stability of the estimated solutions obtained from applying specific equivalent-layer methods.
+Finally, we will delve into the computational strategies adopted in the equivalent-layer technique for reducing computational costs. 
+These strategies encompass various approaches, such as the moving data-window scheme, column- and row-action updates of the sensitivity matrix, reparametrization, sparsity induction of the sensitivity matrix, iterative methods using the full sensitivity matrix, iterative deconvolution using the concept of block-Toeplitz Toeplitz-block (BTTB) matrices, and direct deconvolution.
 
