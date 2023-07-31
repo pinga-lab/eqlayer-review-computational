@@ -27,3 +27,34 @@
 	}
 	\label{tab:standard-flops}
 \end{table}
+
+\newpage
+
+%\begin{landscape}
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{c c c c c}
+	
+		Computational strategies & Characteristics & Advantages & Disadvantages  & articles \\
+		\hline
+		\\
+		Moving data-window scheme & 
+		A single sensitivity submatrix for all moving windows & 
+		One of the fastest strategies  &
+		Regularly spaced grids of sources and data & 
+		\cite{leao-silva1989} \\
+		
+		Moving data-window scheme & 
+		Multiple sensitivity submatrices, one for each moving  & 
+		Irregularly spaced grids of sources and data & 
+		Computational speed is reduced & 
+		\cite{soler-uieda2021} \\
+			\end{tabular}
+	
+	\caption{Computational strategies to overcome the intensive computational cost of the
+       equivalent-layer technique for processing potential-field data and the corresponding 	
+       articles.
+	}
+	\label{tab:discussion}
+\end{table}
+%\end{landscape}
