@@ -52,10 +52,30 @@
 
 \begin{figure}[htbp]
 	\begin{center}
+		\includegraphics[width=9cm]{Fig/synthetic-bodies}
+	\end{center}
+	\caption{
+		Synthetic prisms used in numerical simulations.
+		The prisms A to D with horizontal projections represented by dashed lines
+		have density contrasts of, respectively, $1500$, $-1800$, $-3000$ and $1200  \: \mathrm{kg / m^{3}}$,
+		tops varying from $10$ to $100 \: \mathrm{m}$, bottom from $1010$ to $1500 \: \mathrm{m}$
+		and side lengths varying from $1000$ to $4000 \: \mathrm{m}$.
+		The prism E with horizontal projection represented by solid lines
+		has a density contrast $-900 \: \mathrm{kg / m^{3}}$, top at $1000 \: \mathrm{m}$, bottom at 
+		$1500 \: \mathrm{m}$ and side lengths of $4000$ and $6000 \: \mathrm{m}$.
+		Our model also have $300$ additional small cubes (not shown), with top at $0 \: \mathrm{m}$ and side lengths
+		defined according to a pseudo-random variable having uniform distribution from 
+		$100$ to $200 \: \mathrm{m}$. Their density contrasts vary randomly from $1000$ to $2000 \: \mathrm{kg / m^{3}}$.
+	}
+	\label{fig:synthetic-bodies}
+\end{figure}
+
+\begin{figure}[htbp]
+	\begin{center}
 			\includegraphics[width=9cm]{Fig/noise-free-data}
 		\end{center}
 	\caption{
-		Noise-free gravity data produced by an ensemble of rectangular prisms (not shown). 
+		Noise-free gravity data produced by an ensemble of rectangular prisms (Figure \ref{fig:synthetic-bodies}). 
 		The data are located on a regular grid of $50 \times 50$ points. 
 		Panels \textbf{(A)}--\textbf{(F)} show, respectively, the $xx$, $xy$, $xz$, $yy$, $yz$ and
 		$zz$ component of the gravity-gradient tensor in Eötvös (E).
@@ -116,13 +136,26 @@
 	\label{fig:histograms-TOB20}
 \end{figure}
 
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=10cm]{Fig/Brazil_map}
+	\end{center}
+	\caption{
+		Location of the Caraj{\'a}s Mineral Province (CMP), Brazil. 
+		The coordinates are referred to the WGS-84 datum. The study area (shown in red)
+		is located at the UTM zone 22S.
+	}
+	\label{fig:carajas-location}
+\end{figure}
+
 \begin{figure}[htbp]
 	\begin{center}
 		\includegraphics[width=10cm]{Fig/carajas_data}
 	\end{center}
 	\caption{
 		Field aerogravimetric data over Caraj{\'a}s, Brazil. 
-		There are $D = 500, 000$ observations located on regular grid of $1,000 \times 500$ poins.
+		There are $D = 500, 000$ observations located on regular grid of $1,000 \times 500$ points.
 		}
 	\label{fig:carajas-data}
 \end{figure}
@@ -134,7 +167,7 @@
 	\caption{
 		Estimated gravity-gradient tensor components over Caraj{\'a}s, Brazil.
 		Panels \textbf{(A)}--\textbf{(F)} show, respectively, the $xx$, $xy$, $xz$, $yy$, $yz$ and
-		$zz$ components of the gravity-gradient tensor in Eötvös.
+		$zz$ components of the gravity-gradient tensor in E{\"o}tv{\"o}s.
 		Panel \textbf{(G)} shows the histogram of the residuals between predicted data (not shown) and field data 
 		(Figure \ref{fig:carajas-data}). 
 		The residuals were normalized by removing the mean and dividing the difference

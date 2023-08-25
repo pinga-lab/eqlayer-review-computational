@@ -37,75 +37,75 @@
 	\centering
 	\begin{tabular}{c c c c c}
 	
-		\thead{Computational \\ strategies} & Characteristics & Advantages & Disadvantages  & articles \\
-		\hline
-		\\
-		\thead{Moving data-window \\ scheme} & 
-		\thead{A single  and small \\ 
-		sensitivity submatrix \\ for all moving windows} &
-		\thead{One of the fastest \\ strategies}  &
-		\thead{Regularly spaced grids \\ of sources and data} & 
-		\thead{\cite{leao-silva1989}} \\ 
-		
-		\thead{Moving data-window \\ scheme} & 
-		\thead{Multiple and small \\ 
-		sensitivity submatrices, \\ one for each moving}  & 
-		\thead{Irregularly spaced grids \\ of sources and data} & 
-		\thead{Computational speed \\ is reduced} & 
-		\thead{\cite{soler-uieda2021}} \\ \\
-		
-		\thead{Column-action \\ updates} & 
-		\thead{A single equivalent\\ source is used, \\ iteratively} &
-		\thead{A single column \\ of the sensitivity matrix \\ 
-		is 	calculated}  & 
-		\thead{Issues related to \\ convergence} & 
-		\thead{\cite{cordell1992} \\ \cite{guspi-novara2009}} \\ 
-		
-				
-		\thead{Row-action \\ updates} & 
-		\thead{Equivalent data concept} &
-		\thead{A subset of rows \\ of the sensitivity matrix \\ 
-		is 	calculated}  & 
-		\thead{Increasing the order \\ of the linear system  \\
-		of 	equations, iteratively} & 
-		\thead{\cite{mendonca-silva1994}} \\ \\ 
-			
-		\thead{Reparametrization of \\ the  original parameters} & 
-		\thead{Reduction the dimension \\ of the linear system \\ 
-		of 	equations} &
-		\thead{Lower-dimensional \\ linear system \\  of equations}  & 
-		\thead{Undesirable \\ smoothing effect} & 
-		\thead{\cite{oliveirajr-etal2013} \\ \cite{mendonca2020}} \\ \\ 
-
-		\thead{Sparsity induction of \\ the sensitivity matrix} & 
-		\thead{Sparse representation \\  of the original dense \\ 
-		sensitivity matrix} &
-		\thead{Fast iteration \\ of the CG algorithm}  & 
-		\thead{Requires computing \\  the full and dense \\ 
-		sensitivity matrix} & 
-		\thead{\cite{li-oldenburg2010} \\ \cite{barnes-lumley2011}} \\ \\ 
-
-		\thead{Iterative methods using the \\ full sensitivity matrix} & 
-		\thead{The equivalent layer is \\ updated, iteratively} &
-		\thead{Fast iterations}  & 
-		\thead{Requires computing \\  the full and dense \\ 
-		sensitivity matrix} & 
-		\thead{\cite{xia-sprowl1991} \\ \cite{xia-etal1993} \\
-		\cite{siqueira-etal2017} \\ 	\cite{jirigalatu-ebbing2019}	} \\ \\
-		
-		\thead{Iterative deconvolution } & 
-		\thead{Block-Toeplitz \\ Toeplitz-block (BTTB) \\ 
-		matrices concept} &
-		\thead{One of the fastest \\ strategies}  & 
-		\thead{Regularly spaced grids \\ of sources and data} & 
-		\thead{\cite{takahashi-etal2020} 
-		\\ \cite{takahashi-etal2022}} \\ \\
-
-		\thead{Direct deconvolution } & 
-		\thead{BTTB	matrices concept} &
-		\thead{One of the fastest \\ strategies}  & 
-		\thead{Solution instability} & 
-		\thead{ } \\ \\
+%		\thead{Computational \\ strategies} & Characteristics & Advantages & Disadvantages  & articles \\
+%		\hline
+%		\\
+%		\thead{Moving data-window \\ scheme} & 
+%		\thead{A single  and small \\ 
+%		sensitivity submatrix \\ for all moving windows} &
+%		\thead{One of the fastest \\ strategies}  &
+%		\thead{Regularly spaced grids \\ of sources and data} & 
+%		\thead{\cite{leao-silva1989}} \\ 
+%		
+%		\thead{Moving data-window \\ scheme} & 
+%		\thead{Multiple and small \\ 
+%		sensitivity submatrices, \\ one for each moving}  & 
+%		\thead{Irregularly spaced grids \\ of sources and data} & 
+%		\thead{Computational speed \\ is reduced} & 
+%		\thead{\cite{soler-uieda2021}} \\ \\
+%		
+%		\thead{Column-action \\ updates} & 
+%		\thead{A single equivalent\\ source is used, \\ iteratively} &
+%		\thead{A single column \\ of the sensitivity matrix \\ 
+%		is 	calculated}  & 
+%		\thead{Issues related to \\ convergence} & 
+%		\thead{\cite{cordell1992} \\ \cite{guspi-novara2009}} \\ 
+%		
+%				
+%		\thead{Row-action \\ updates} & 
+%		\thead{Equivalent data concept} &
+%		\thead{A subset of rows \\ of the sensitivity matrix \\ 
+%		is 	calculated}  & 
+%		\thead{Increasing the order \\ of the linear system  \\
+%		of 	equations, iteratively} & 
+%		\thead{\cite{mendonca-silva1994}} \\ \\ 
+%			
+%		\thead{Reparametrization of \\ the  original parameters} & 
+%		\thead{Reduction the dimension \\ of the linear system \\ 
+%		of 	equations} &
+%		\thead{Lower-dimensional \\ linear system \\  of equations}  & 
+%		\thead{Undesirable \\ smoothing effect} & 
+%		\thead{\cite{oliveirajr-etal2013} \\ \cite{mendonca2020}} \\ \\ 
+%
+%		\thead{Sparsity induction of \\ the sensitivity matrix} & 
+%		\thead{Sparse representation \\  of the original dense \\ 
+%		sensitivity matrix} &
+%		\thead{Fast iteration \\ of the CG algorithm}  & 
+%		\thead{Requires computing \\  the full and dense \\ 
+%		sensitivity matrix} & 
+%		\thead{\cite{li-oldenburg2010} \\ \cite{barnes-lumley2011}} \\ \\ 
+%
+%		\thead{Iterative methods using the \\ full sensitivity matrix} & 
+%		\thead{The equivalent layer is \\ updated, iteratively} &
+%		\thead{Fast iterations}  & 
+%		\thead{Requires computing \\  the full and dense \\ 
+%		sensitivity matrix} & 
+%		\thead{\cite{xia-sprowl1991} \\ \cite{xia-etal1993} \\
+%		\cite{siqueira-etal2017} \\ 	\cite{jirigalatu-ebbing2019}	} \\ \\
+%		
+%		\thead{Iterative deconvolution } & 
+%		\thead{Block-Toeplitz \\ Toeplitz-block (BTTB) \\ 
+%		matrices concept} &
+%		\thead{One of the fastest \\ strategies}  & 
+%		\thead{Regularly spaced grids \\ of sources and data} & 
+%		\thead{\cite{takahashi-etal2020} 
+%		\\ \cite{takahashi-etal2022}} \\ \\
+%
+%		\thead{Direct deconvolution } & 
+%		\thead{BTTB	matrices concept} &
+%		\thead{One of the fastest \\ strategies}  & 
+%		\thead{Solution instability} & 
+%		\thead{ } \\ \\
 
 
 
