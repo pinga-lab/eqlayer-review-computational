@@ -42,7 +42,7 @@ def f_CGLS(D, P, ITMAX):
     assert isinstance(P, int) and (P > 0), 'P must be a positive integer'
     assert isinstance(ITMAX, int) and (ITMAX > 0), 'ITMAX must be a positive integer'
 
-    flops = 2*P*(D+1) + ITMAX*(2*P*(2*D + 3) + 4*D)
+    flops = 2*P*D + ITMAX*(4*P*D + 4*D)
 
     return flops
 
@@ -92,7 +92,7 @@ def f_SU21(M, Dw, Pw):
     assert isinstance(Dw, int) and (Dw > 0), 'Dw must be a positive integer'
     assert isinstance(Pw, int) and (Pw > 0), 'Pw must be a positive integer'
 
-    flops = M*((1/3)*Pw**3 + 2*(Dw+1)*Pw**2 + (4*Dw+1)*Pw)
+    flops = M*((1/3)*Pw**3 + 2*Dw*Pw**2 + 4*Dw*Pw)
 
     return flops
 
@@ -103,7 +103,7 @@ def f_C92(D, ITMAX):
     ----------
     D : int
         Total number of potential-field data.
-    ITMAX : int
+   ITMAX : int
         Maximum number of iterations in Algorithm (1).
 
     returns
@@ -114,7 +114,7 @@ def f_C92(D, ITMAX):
     assert isinstance(D, int) and (D > 0), 'D must be a positive integer'
     assert isinstance(ITMAX, int) and (ITMAX > 0), 'ITMAX must be a positive integer'
 
-    flops = D*np.log(D) + ITMAX*(2*D + D*np.log(D))
+    flops = 4*D**2 + 6*D + D*np.log(D) + ITMAX*(2*D + D*np.log(D))
 
     return flops
 
@@ -142,7 +142,7 @@ def f_reparam(D, P, Q, ITMAX):
     assert isinstance(Q, int) and (Q > 0), 'Q must be a positive integer'
     assert isinstance(ITMAX, int) and (ITMAX > 0), 'ITMAX must be a positive integer'
 
-    flops = 2*Q*(D*P+D+1) + 2*P*Q + ITMAX*(2*Q*(2*D + 3) + 4*D)
+    flops = 2*Q*(D*P+D) + 2*P*Q + ITMAX*(4*Q*D + 4*D)
 
     return flops
 
@@ -164,7 +164,7 @@ def f_SOB17(D, ITMAX):
     assert isinstance(D, int) and (D > 0), 'D must be a positive integer'
     assert isinstance(ITMAX, int) and (ITMAX > 0), 'ITMAX must be a positive integer'
 
-    flops = 2*D + ITMAX*(2*D**2 + 3*D)
+    flops = 4*D**2 + 6*D + ITMAX*(2*D**2 + 3*D)
 
     return flops
 

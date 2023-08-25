@@ -90,7 +90,7 @@
 	Set a tolerance $\epsilon$ \;
 	Set a maximum number of iterations $\mathtt{ITMAX}$ \;
 	Compute $\mathbf{G}$ (equation \ref{eq:predicted-data-vector}) \;
-	Compute the scale factor $\sigma = \frac{\mathbf{d}^{\top} \mathbf{G}\mathbf{d}}{\mathbf{d}^{\top}\mathbf{d}}$\;
+	Compute the scale factor $\sigma = \nicefrac{\mathbf{d}^{\top} \left( \mathbf{G}\mathbf{d} \right)}{\mathbf{d}^{\top}\mathbf{d}}$\;
 	Set a $D \times 1$ vector $\tilde{\mathbf{p}} = \sigma \, \mathbf{d}$ \;
 	Set a $D \times 1$ residuals vector $\mathbf{r} = \mathbf{d} - \mathbf{G} \tilde{\mathbf{p}}$ \;
 	Define the maximum absolute value $r_{\mathtt{max}}$ in $\mathbf{r}$ \;
@@ -141,7 +141,7 @@
 	Set a tolerance $\epsilon$ \;
 	Set a maximum number of iterations $\mathtt{ITMAX}$ \;
 	Compute $\mathbf{G}$ (equation \ref{eq:predicted-data-vector}) \;
-	Compute the scale factor $\sigma = \frac{\mathbf{d}^{\top} \mathbf{G}\mathbf{d}}{\mathbf{d}^{\top}\mathbf{d}}$\;
+	Compute the scale factor $\sigma = \nicefrac{\mathbf{d}^{\top} \left( \mathbf{G}\mathbf{d} \right)}{\mathbf{d}^{\top}\mathbf{d}}$\;
 	Set a $D \times 1$ vector $\tilde{\mathbf{p}} = \sigma \, \mathbf{d}$ \;
 	Compute the $D \times 1$ residuals vector $\mathbf{r} = \mathbf{d} - \mathbf{G} \tilde{\mathbf{p}}$ \;
 	Compute $\delta = \nicefrac{\| \mathbf{r} \|}{D}$ \;
