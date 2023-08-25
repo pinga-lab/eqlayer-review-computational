@@ -1,0 +1,85 @@
+\section{Discussion}
+%%% 
+
+The review discusses strategies utilized to reduce the computational cost of the equivalent-layer technique for processing potential-field data. These strategies are often combined in developed methods to efficiently handle large-scale data sets. 
+Next, the computational strategies are addressed.
+
+The first one is the moving data-window scheme spanning the data set.
+This strategy solves several much smaller, regularized linear inverse problems 
+instead of a single large one.
+Each linear inversion is solved using the potential-field observations and equivalent sources within a given moving window and can be applied to both regularly or irregularly spaced data sets.
+If the data and the sources are distributed on planar and regularly spaced grids, this strategy offers a significant advantage because the sensitivity submatrix of a given moving window remains the same for all windows.
+Otherwise, the computational efficiency of the equivalent-layer technique using the moving-window strategy decreases because the sensitivity submatrix for each window must be computed.
+
+The second and third strategies, referred to as the column-action and row-action updates, involve iteratively calculating a single column and a single row of the sensitivity matrix, respectively.
+By following the column-action update strategy, a single column of the sensitivity matrix is calculated during each iteration. 
+This implies that a single equivalent source contributes to the fitting of data in each iteration.
+Conversely, in the row-action update strategy, a single row of the sensitivity matrix is calculated per iteration, which means that  one potential-field observation is incorporated in each iteration, 
+forming a new subset of equivalent data much smaller than the original data.
+Both strategies (column- and row-action updates) have a great advantage  because a single column or a single row of the sensitivity matrix is calculated iteratively.
+However, to our knowledge, the strategy of the column-action update presents some issues related to convergence, and the strategy of the row-action update can also have issues if the number of equivalent data  is not significantly smaller than the original number of data points.
+
+
+The fourth strategy is the sparsity induction of the sensitivity matrix using wavelet compression, which involves transforming a full sensitivity matrix into a sparse one with only a few nonzero elements.
+The developed equivalent-layer methods using this strategy achieve sparsity by setting matrix elements to zero if their values are smaller than a predefined threshold.
+We highlight two methods that employ the sparsity induction strategy.
+The first method, known as wavelet-compression equivalent layer, compresses the coefficients of the original sensitivity matrix using discrete wavelet transform, achieves sparsity in the sensitivity matrix, and solves the inverse problem in the wavelet domain without an explicit regularization parameter.
+The regularized solution in the wavelet domain is estimated using a conjugate gradient (CG) least squares algorithm, where the number of iterations serves as a regularization factor.
+The second equivalent-layer method that uses the sparsity induction strategy applies quadtree discretization of the parameters over the equivalent layer, achieves sparsity in the sensitivity matrix, and solves the inverse problem using CG algorithm.
+In quadtree discretization, equivalent sources located far from the observation point are grouped together to form larger equivalent sources, reducing the number of parameters to be estimated.
+Computationally, the significant advantage of the equivalent-layer methods employing wavelet compression and quadtree discretization is the sparsity induction in the sensitivity matrix, which allows for fast iteration of the CG algorithm.
+However, we acknowledge that this strategy requires computing the full and dense sensitivity matrix, which can be considered a drawback when processing large-scale potential-field data.
+
+The fifth strategy is the reparametrization of the original parameters to be estimated in the equivalent-layer technique.
+In this strategy, the developed equivalent-layer methods reduce 
+the dimension of the linear system of equations to be solved by 
+estimating a lower-dimensional parameter vector.
+We highlight two methods that used the reparametrization strategy:
+i) the polynomial equivalent layer (PEL) and; 
+ii) the lower-dimensional subspace of the equivalent layer.
+In the PEL, there  is an explicit reparametrization of the equivalent layer
+by representing the unknown distribution over the equivalent layer as a set of 
+piecewise-polynomial functions defined on a set of equivalent-source windows.
+The PEL method estimates the polynomial coefficients of all equivalent-source windows.
+Hence, PEL reduces the dimension of the linear system of equations to be solved because the polynomial coefficients within all equivalent-source windows 
+are much smaller than both the number of equivalent sources and the number of data points.
+In the lower-dimensional subspace of the equivalent layer, there  is an implicity  reparametrization of the equivalent layer by reducing the linear system dimension from the original and large-model space 
+to a lower-dimensional subspace.
+The lower-dimensional subspace is grounded on eigenvectors of the matrix composed by the gridded data set.
+The main advantage of the reparametrization of the equivalent layer is to deal with lower-dimensional  linear system of equations.
+However, we acknowledge that this strategy may impose an undesirable smoothing effect on both the estimated parameters over the equivalent layer and the predicted data.
+
+
+The sixth strategy involves an iterative scheme in which the estimated  distribution over the equivalent layer is updated iteratively. 
+Following this strategy, the developed equivalent-layer methods differ 
+either in terms of the expression used for the estimated parameter correction 
+or the domain utilized (wavenumber or space domains). 
+The iterative estimated correction may have a physical meaning, such as the excess mass constraint. 
+All the iterative methods are efficient as they can handle irregularly spaced data on an undulating surface, and the updated corrections for the parameter vector at each iteration are straightforward, involving the addition of a quantity proportional to the data residual.
+However, they have a disadvantage because the iterative strategy requires computing the full and dense sensitivity matrix to compute 
+the predicted and residual data in all observation stations per iteration.
+
+
+The seventh strategy is called iterative deconvolutional of the equivalent layer.
+This strategy deals with regularly spaced grids of data stations and equivalent sources which are located at a constant height and depth, respectively. 
+Specifically, one source is placed directly below each observation station, which results in sensitivity matrices with a BTTB (Block-Toeplitz Toeplitz-Block) structure. 
+It is possible to embed the BTTB matrix into a matrix of Block-Circulant Circulant-Block (BCCB) structure, which requires only one equivalent source. 
+This allows for fast matrix-vector product using a 2D fast Fourier transform (2D FFT). 
+As a result, the potential-field forward modeling can be calculated using 
+a 2D FFT with only one equivalent source required. 
+The main advantages of this strategy are that the entire sensitivity matrices do not need to be formed or stored; only their first columns are required. Additionally, it allows for a highly efficient iteration of the CG algorithm.
+However, the iterative deconvolutional of the equivalent layer requires 
+observations and equivalent sources aligned on a horizontal and regularly-spaced grid.
+
+The eigth strategy is a direct deconvolution method, which is a mathematical process very common in geophysics. 
+However, to our knowledge, direct deconvolution has never been used to solve the inverse problem associated with the equivalent-layer technique. 
+From the mathematical expressions in the iterative deconvolutional equivalent layer with BTTB matrices, direct deconvolution arises naturally since it is an operation inverse to convolution. 
+The main advantage of applying the direct deconvolution strategy in the equivalent layer is that it avoids, for example, the  iterations of the CG algorithm. 
+However, the direct deconvolution is known to be an unstable operation.
+To mitigate this instability, the Wiener deconvolution method can be adopted.
+
+Table \ref{tab:discussion} presents a list of computational strategies used in the equivalent-layer technique to reduce the computational demand.
+The table aims to emphasize the important characteristics, advantages, and disadvantages of each computational strategy. 
+Additionally, it highlights the available methods that use each strategy.
+
+
