@@ -24,7 +24,7 @@ The control parameters to run the equivalent-layer methods shown in Figure
 i) in CGLS, reparameterization approaches \cite[e.g.,][]{oliveirajr-etal2013, mendonca2020}, \cite{siqueira-etal2017}, and 
 \cite{takahashi-etal2020} (equations \ref{flops:cgls} \ref{flops:C92}), 
 \ref{flops:reparameterization-cgls},  \ref{flops:SOB17} and \ref{flops:TOB20}) we set $\mathtt{ITMAX} = 50$; 
-ii) \cite{cordell1992} we set ITMAX = $6 \, D$; 
+ii) \cite{cordell1992} we set ITMAX = $10 \, D$; 
 iii) in \cite{leao-silva1989} (equation \ref{flops:LS89}) we set 
 $D'= 49 \: (7 \times 7)$ and $P' = 225 \: (15 \times 15) $; and
 iv) in \cite{soler-uieda2021} (equation  \ref{flops:SU21}) we set 
@@ -52,7 +52,7 @@ This prism has density contrast is $-900 \: \mathrm{kg / m^{3}}$ and produces th
 long-wavelength of our synthetic gravity data.
 
 We have computed noise-free gravity disturbance and gravity-gradient tensor components 
-produced by our model on a regularly spaced grid of $50 \times 50$ points at 
+produced by our model (Figure \ref{fig:synthetic-bodies}) on a regularly spaced grid of $50 \times 50$ points at 
 $z = -100 \: \mathrm{m}$ (Figure \ref{fig:noise-free-data}).
 We have also simulated additional $L = 20$ gravity disturbance data sets $\mathbf{d}^{\ell}$, $\ell \in \{1:L\}$, 
 by adding pseudo-random Gaussian noise with zero mean and crescent standard deviations to the noise-free data (not shown).
@@ -68,9 +68,10 @@ so that the vertical distance $\Delta z$ between equivalent sources and the simu
 Note that, in this case, the layer has a number of sources $P$ equal to the number of data $D$.
 
 We have applied the Cholesky factorization (equations \ref{eq:Cholesky-factorization} and \ref{eq:Cholesky-solver}), 
-CGLS (Algorithm \ref{alg:CGLS}), the iterative method of \citet{siqueira-etal2017} (Algorithm \ref{alg:SOB17}), 
+CGLS (Algorithm \ref{alg:CGLS}), column-action update method of \citet{cordell1992} (Algorithm \ref{alg:C92}), 
+the iterative method of \citet{siqueira-etal2017} (Algorithm \ref{alg:SOB17}), 
 the iterative deconvolution (Algorithms \ref{alg:TOB20-22} and \ref{alg:fast-2D-convolution}) proposed by 
-\citet{takahashi-etal2020} (Algorithm \ref{alg:TOB20-22}) and the direct deconvolution 
+\citet{takahashi-etal2020} and the direct deconvolution 
 (equations \ref{eq:direct-deconvolution} and \ref{eq:matrix-L-Wiener-deconvolution})
 with four different values for the parameter $\zeta$ to the $21$ gravity data sets.
 
@@ -96,11 +97,13 @@ emphasizes the necessity of using the Wiener filter ($\zeta > 0$ in equation \re
 
 The estimated stability parameters $\kappa$ (equation \ref{eq:condition-number}) obtained for the Cholesky factorization, CGLS and
 iterative deconvolution are close to each other (Figures \ref{fig:stability-comparison}).
-They are slightly smaller than that obtained for the iterative method of \citet{siqueira-etal2017} ($\mathtt{SOB17}$).
+They are slightly smaller than that obtained for the iterative method of \citet{siqueira-etal2017}.
 Note that by varying the parameter $\zeta$ (equation \ref{eq:matrix-L-Wiener-deconvolution}) it is possible to obtain different 
 stability parameters $\kappa$ for the direct deconvolution. There is no apparent rule to set $\zeta$.
 A practical criterion can be the maximum $\zeta$ producing a satisfactory data fit. Overshoot values tend to exaggeratedly smooth the 
-predicted data. 
+predicted data.
+As we can see in Figure \ref{fig:stability-comparison}, the most unstable approaches are the direct deconvolution with null $\zeta$
+($\mathtt{deconv. unstable}$), followed by the column-action update ($\mathtt{C92}$).
 
 We inverted the noise-corrupted gravity disturbance  with the highest noise level (not shown) 
 to estimate an equivalent layer (not shown) via iterative deconvolution (Algorithm \ref{alg:TOB20-22}).
