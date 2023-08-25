@@ -89,14 +89,16 @@
 	is a vertical distance controlling the depth of the $i$-th equivalent source, $i \in \{1:D\}$ \;
 	Set a tolerance $\epsilon$ \;
 	Set a maximum number of iterations $\mathtt{ITMAX}$ \;
-	Set a $D \times 1$ residuals vector $\mathbf{r} = \mathbf{d}$ \;
-	Set a $D \times 1$ vector $\tilde{\mathbf{p}} = \mathbf{0}$ \;
+	Compute $\mathbf{G}$ (equation \ref{eq:predicted-data-vector}) \;
+	Compute the scale factor $\sigma = \nicefrac{\mathbf{d}^{\top} \left( \mathbf{G}\mathbf{d} \right)}{\mathbf{d}^{\top}\mathbf{d}}$\;
+	Set a $D \times 1$ vector $\tilde{\mathbf{p}} = \sigma \, \mathbf{d}$ \;
+	Set a $D \times 1$ residuals vector $\mathbf{r} = \mathbf{d} - \mathbf{G} \tilde{\mathbf{p}}$ \;
 	Define the maximum absolute value $r_{\mathtt{max}}$ in $\mathbf{r}$ \;
 	$m = 1$ \;
 	\While{$(r_{\mathtt{max}} > \epsilon)$ {\bf and} $(m < \mathtt{ITMAX})$}{
 		Define the coordinates $(x_{\mathtt{max}}, y_{\mathtt{max}}, z_{\mathtt{max}})$ and index $i_{\mathtt{max}}$ of the observation point associated with $r_{\mathtt{max}}$ \;
-		$\tilde{\mathbf{p}}[i_{\mathtt{max}}] \gets \tilde{\mathbf{p}}[i_{\mathtt{max}}] + \left( r_{\mathtt{max}} \, \boldsymbol{\Delta}\mathbf{z}[i_{\mathtt{max}}] \right)$ \;
-		$\mathbf{r} \gets \mathbf{r} - \left( \mathbf{G}[:, i_{\mathtt{max}}] \, \tilde{\mathbf{p}}[i_{\mathtt{max}}] \right)$ \;
+		$\tilde{\mathbf{p}}[i_{\mathtt{max}}] \gets \tilde{\mathbf{p}}[i_{\mathtt{max}}] + \left( \sigma \, r_{\mathtt{max}} \right)$ \;
+		$\mathbf{r} \gets \mathbf{r} - \left( \sigma \, r_{\mathtt{max}} \right) \mathbf{G}[:, i_{\mathtt{max}}] $ \;
 		Define the new $r_{\mathtt{max}}$ in $\mathbf{r}$ \;
 		$m \gets m + 1$ \;
 	}
@@ -138,24 +140,21 @@
 	Set $P$ equivalent sources on a horizontal plane $z_{0}$ \;
 	Set a tolerance $\epsilon$ \;
 	Set a maximum number of iterations $\mathtt{ITMAX}$ \;
-	Set an auxiliary vector $\boldsymbol{\sigma}$ \;
-	Compute $\tilde{\mathbf{p}} = \mathbf{0}$ \;
 	Compute $\mathbf{G}$ (equation \ref{eq:predicted-data-vector}) \;
-	Compute $\mathbf{r} = \mathbf{d}$ \;
+	Compute the scale factor $\sigma = \nicefrac{\mathbf{d}^{\top} \left( \mathbf{G}\mathbf{d} \right)}{\mathbf{d}^{\top}\mathbf{d}}$\;
+	Set a $D \times 1$ vector $\tilde{\mathbf{p}} = \sigma \, \mathbf{d}$ \;
+	Compute the $D \times 1$ residuals vector $\mathbf{r} = \mathbf{d} - \mathbf{G} \tilde{\mathbf{p}}$ \;
 	Compute $\delta = \nicefrac{\| \mathbf{r} \|}{D}$ \;
 	$m = 1$\;
 	\While{$(\delta > \epsilon)$ {\bf and} $(m < \mathtt{ITMAX})$}{
-		Compute $\boldsymbol{\Delta}\mathbf{p} = \boldsymbol{\sigma} \circ \mathbf{r}$ \;
+		Compute $\boldsymbol{\Delta}\mathbf{p} = \sigma \, \mathbf{r}$ \;
 		Update $\tilde{\mathbf{p}} \gets \tilde{\mathbf{p}} + \boldsymbol{\Delta}\mathbf{p}$ \;
 		Compute $\boldsymbol{\nu} = \mathbf{G} \, \boldsymbol{\Delta}\mathbf{p}$ \;
 		Update $\mathbf{r} \gets \mathbf{r} - \boldsymbol{\nu}$ \;
 		Compute $\delta = \nicefrac{\| \boldsymbol{\nu} \|}{D}$ \;
 		$m \gets m + 1$\;
 	}
-	\caption{Generic pseudo-code for the iterative method proposed by \cite{siqueira-etal2017}.
-		The symbol ``$\circ$'' denotes the entrywise or Hadamard product \cite[e.g.,][p. 298]{horn-johnson1991} and
-		$\boldsymbol{\sigma}$ is a $P \times 1$ vector whose $j$-th element is the ratio of a predefined element of area centered at the $j$-th
-		equivalent source and the term $2 \pi \gamma$, where $\gamma$ is the gravitational constant.}
+	\caption{Generic pseudo-code for the iterative method proposed by \cite{siqueira-etal2017}.}
 	\label{alg:SOB17}
 \end{algorithm}
 
